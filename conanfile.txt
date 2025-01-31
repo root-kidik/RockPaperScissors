@@ -5,8 +5,5 @@ qt/6.7.3
 CMakeDeps
 CMakeToolchain
 
-[options]
-qt*:shared=True
-
 [layout]
 cmake_layout
