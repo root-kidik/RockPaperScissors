@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Python
+env
+
+# Conan
+CMakeUserPresets.json
+
+# Other
+build*
+generated*
