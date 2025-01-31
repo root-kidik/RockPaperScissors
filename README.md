@@ -22,27 +22,24 @@ conan install . --build=missing --profile:all=linux.gcc.release
 
 ### Windows (Windows 11)
 
-- download: https://github.com/Kitware/CMake/releases/download/v3.31.5/cmake-3.31.5-windows-x86_64.msi
-- download: https://www.python.org/ftp/python/3.13.1/python-3.13.1-amd64.exe
-- download: https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/LLVM-18.1.8-win64.exe
+- git https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.2/Git-2.47.1.2-64-bit.exe
+- vscode https://code.visualstudio.com/download#
+- visual studio https://visualstudio.microsoft.com/ru/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false
+- python https://www.python.org/ftp/python/3.13.1/python-3.13.1-amd64.exe
+- cmake https://github.com/Kitware/CMake/releases/download/v3.31.5/cmake-3.31.5-windows-x86_64.msi
 
-открыть консоль от имени администратора и вставить комманду
-возможно версия компилятора будет отличаться, нужно обязательно вашу версию указать
-```
-setx PATH "%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\bin\Hostx64\x64" /M
-```
+в powershell от имени администратора
+Set-ExecutionPolicy RemoteSigned
 
-```
-pip install ninja
-
-pip install virtualenv
 python -m venv env
 env/Scripts/activate
+
 pip install conan
 
-copy profiles\windows.msvc.debug ~\.conan2\profiles\
-copy profiles\windows.msvc.release ~\.conan2\profiles\
+conan profile detect
+conan install . --build=missing -s:a compiler.cppstd=17
 
-conan install . --build=missing --profile:all=windows.msvc.debug
-conan install . --build=missing --profile:all=windows.msvc.release
-```
+В vscode включить
+Cmake › Options: Status Bar Visibility -> visible
+
+затем выбрать пресет и собрать
