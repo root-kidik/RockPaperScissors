@@ -8,5 +8,5 @@ else()
     message(FATAL_ERROR "Not supported OS")
 endif()
 
-find_package(Qt6 COMPONENTS Core Widgets Network ${INTEGRATION_PLUGIN} REQUIRED)
+find_package(Qt6 COMPONENTS ${INTEGRATION_PLUGIN} Core Widgets Network REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::${INTEGRATION_PLUGIN} Qt6::Core Qt6::Widgets Qt6::Network)
