@@ -13,11 +13,11 @@ python3 -m venv env
 source env/bin/activate
 pip3 install conan
 
-cp profiles/linux.clang.debug   ~/.conan2/profiles/
-cp profiles/linux.clang.release ~/.conan2/profiles/
+cp profiles/linux.gcc.debug   ~/.conan2/profiles/
+cp profiles/linux.gcc.release ~/.conan2/profiles/
 
-conan install . --build=missing --profile:all=linux.clang.debug
-conan install . --build=missing --profile:all=linux.clang.release
+conan install . --build=missing --profile:all=linux.gcc.debug
+conan install . --build=missing --profile:all=linux.gcc.release
 ```
 
 ### Windows (Windows 11)
