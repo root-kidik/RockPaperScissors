@@ -2,6 +2,8 @@
 
 #ifdef _WIN32
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
+#else
+Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)
 #endif
 
 #include <QApplication>
