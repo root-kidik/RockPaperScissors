@@ -19,7 +19,6 @@
 - [ ] Start a timer before each turn
 - [ ] Deal cards at the beginning of the game
 - [ ] Receive each player's turn
-- [ ] Report each player's turn (rock, paper, scissors)
 - [ ] Monitor the game board (the cards that players played)
 - [ ] Randomly select any card after time has elapsed
 - [ ] Keep track of each turn
