@@ -7,13 +7,15 @@ Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
 #include <QApplication>
-#include <QPushButton>
+
+#include <infrastructure/widget/MainMenuWidget.hpp>
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-    QPushButton  button("Hello, Qt6!");
-    button.resize(200, 100);
-    button.show();
+
+    rps::infrastructure::widget::MainMenuWidget main_menu;
+    main_menu.show();
+
     return app.exec();
 }
