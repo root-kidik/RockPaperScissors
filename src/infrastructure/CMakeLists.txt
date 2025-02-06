@@ -4,6 +4,11 @@ set(TARGET_NAME ${PROJECT_NAME}-${TARGET_SUFFIX})
 set(SRCROOT ${CMAKE_CURRENT_LIST_DIR})
 
 set(SRC 
+    ${SRCROOT}/client/Client.hpp
+    ${SRCROOT}/client/Client.cpp
+    ${SRCROOT}/client/TcpSocketConnection.hpp
+    ${SRCROOT}/client/TcpSocketConnection.cpp
+
     ${SRCROOT}/widget/MainMenuWidget.hpp
     ${SRCROOT}/widget/MainMenuWidget.cpp
 )
