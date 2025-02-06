@@ -15,8 +15,9 @@ python3 -m venv env
 source env/bin/activate
 pip3 install conan
 
-conan profile detect
-conan install . --build=missing -s:a compiler.cppstd=17
+conan profile detect --exist-ok
+conan install . --build=missing --settings:all compiler.cppstd=17 --settings:all build_type=Release
+conan install . --build=missing --settings:all compiler.cppstd=17 --settings:all build_type=Debug
 ```
 
 ### Windows (Windows 11)
@@ -44,8 +45,9 @@ env/Scripts/activate
 
 pip install conan
 
-conan profile detect
-conan install . --build=missing -s:a compiler.cppstd=17
+conan profile detect --exist-ok
+conan install . --build=missing --settings:all compiler.cppstd=17 --settings:all build_type=Release
+conan install . --build=missing --settings:all compiler.cppstd=17 --settings:all build_type=Debug
 ```
 
 В vscode включить
