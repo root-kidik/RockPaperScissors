@@ -13,7 +13,7 @@ void ConnectToRoom::handle(Response&& response)
     if (!response.is_ok)
         return;
 
-    m_mode_manager.activate_mode(entity::Mode::RoomWait);
+    m_mode_manager.activate_mode(entity::Mode::Room);
 }
 
 } // namespace rps::domain::handler::response

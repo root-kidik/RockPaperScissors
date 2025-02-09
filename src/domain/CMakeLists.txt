@@ -18,10 +18,10 @@ set(SRC
 
     ${SRCROOT}/model/Registration.hpp
     ${SRCROOT}/model/Registration.cpp
-    ${SRCROOT}/model/RoomSearch.hpp
-    ${SRCROOT}/model/RoomSearch.cpp
-    ${SRCROOT}/model/RoomWait.hpp
-    ${SRCROOT}/model/RoomWait.cpp
+    ${SRCROOT}/model/Searching.hpp
+    ${SRCROOT}/model/Searching.cpp
+    ${SRCROOT}/model/Room.hpp
+    ${SRCROOT}/model/Room.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})

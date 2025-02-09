@@ -1,13 +1,13 @@
+#include <domain/handler/response/ConnectToRoom.hpp>
 #include <domain/handler/response/CreateRoom.hpp>
 #include <domain/handler/response/Register.hpp>
-#include <domain/handler/response/ConnectToRoom.hpp>
 
 #include <infrastructure/RockPaperScissors.hpp>
 #include <infrastructure/client/TcpSocketConnection.hpp>
 #include <infrastructure/widget/MainMenu.hpp>
 #include <infrastructure/widget/Registration.hpp>
-#include <infrastructure/widget/RoomSearch.hpp>
-#include <infrastructure/widget/RoomWait.hpp>
+#include <infrastructure/widget/Room.hpp>
+#include <infrastructure/widget/Searching.hpp>
 
 namespace rps::infrastructure
 {
@@ -44,8 +44,8 @@ void RockPaperScissors::init_widgets()
 {
     m_widget_manager.register_widget<widget::MainMenu>(domain::entity::Mode::MainMenu, m_widget_manager);
     m_widget_manager.register_widget<widget::Registration>(domain::entity::Mode::Registration, m_message_sender, m_user, m_connection);
-    m_widget_manager.register_widget<widget::RoomSearch>(domain::entity::Mode::RoomSearch, m_message_sender, m_user, m_connection);
-    m_widget_manager.register_widget<widget::RoomWait>(domain::entity::Mode::RoomWait);
+    m_widget_manager.register_widget<widget::Searching>(domain::entity::Mode::Searching, m_message_sender, m_user, m_connection);
+    m_widget_manager.register_widget<widget::Room>(domain::entity::Mode::Room);
 
     m_widget_manager.activate_mode(domain::entity::Mode::MainMenu);
 }

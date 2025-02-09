@@ -8,12 +8,12 @@
 namespace rps::infrastructure::widget
 {
 
-class RoomWait : public QWidget
+class Room : public QWidget
 {
     Q_OBJECT
 
 public:
-    RoomWait();
+    Room();
 };
 
 } // namespace rps::infrastructure::widget

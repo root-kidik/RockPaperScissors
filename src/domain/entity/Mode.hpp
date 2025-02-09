@@ -8,8 +8,8 @@ enum class Mode
     Begin,
     MainMenu,
     Registration,
-    RoomSearch,
-    RoomWait,
+    Searching,
+    Room,
     End,
 };
 

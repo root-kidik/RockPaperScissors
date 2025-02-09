@@ -15,10 +15,10 @@ set(SRC
     ${SRCROOT}/widget/MainMenu.cpp
     ${SRCROOT}/widget/Registration.hpp
     ${SRCROOT}/widget/Registration.cpp
-    ${SRCROOT}/widget/RoomSearch.hpp
-    ${SRCROOT}/widget/RoomSearch.cpp
-    ${SRCROOT}/widget/RoomWait.hpp
-    ${SRCROOT}/widget/RoomWait.cpp
+    ${SRCROOT}/widget/Searching.hpp
+    ${SRCROOT}/widget/Searching.cpp
+    ${SRCROOT}/widget/Room.hpp
+    ${SRCROOT}/widget/Room.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})

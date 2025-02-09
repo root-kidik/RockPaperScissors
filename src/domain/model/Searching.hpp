@@ -8,12 +8,15 @@
 namespace rps::domain::model
 {
 
-class RoomWait
+class Searching
 {
 public:
-    RoomWait(protocol::entity::MessageSender&                        message_sender,
-             domain::entity::User&                                   user,
-             const std::shared_ptr<protocol::interface::Connection>& connection);
+    Searching(protocol::entity::MessageSender&                        message_sender,
+              domain::entity::User&                                   user,
+              const std::shared_ptr<protocol::interface::Connection>& connection);
+
+    void create_room(std::string&& room_name);
+    void connect_to_room(std::string&& room_name);
 
 private:
     protocol::entity::MessageSender&                        m_message_sender;

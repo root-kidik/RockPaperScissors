@@ -13,7 +13,7 @@ void CreateRoom::handle(Response&& response)
     if (response.is_ok)
         return;
 
-    // TODO: handle not ok status 
+    // TODO: handle not ok status
 }
 
 } // namespace rps::domain::handler::response

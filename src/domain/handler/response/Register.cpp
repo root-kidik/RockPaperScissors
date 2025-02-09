@@ -17,7 +17,7 @@ void Register::handle(Response&& response)
         return;
 
     m_user.uuid = std::move(response.user_uuid);
-    m_mode_manager.activate_mode(entity::Mode::RoomSearch);
+    m_mode_manager.activate_mode(entity::Mode::Searching);
 }
 
 } // namespace rps::domain::handler::response

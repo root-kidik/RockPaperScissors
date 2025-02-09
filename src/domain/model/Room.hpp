@@ -8,15 +8,12 @@
 namespace rps::domain::model
 {
 
-class RoomSearch
+class Room
 {
 public:
-    RoomSearch(protocol::entity::MessageSender&                        message_sender,
-               domain::entity::User&                                   user,
-               const std::shared_ptr<protocol::interface::Connection>& connection);
-
-    void create_room(std::string&& room_name);
-    void connect_to_room(std::string&& room_name);
+    Room(protocol::entity::MessageSender&                        message_sender,
+         domain::entity::User&                                   user,
+         const std::shared_ptr<protocol::interface::Connection>& connection);
 
 private:
     protocol::entity::MessageSender&                        m_message_sender;
