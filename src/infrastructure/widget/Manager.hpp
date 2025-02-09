@@ -3,9 +3,10 @@
 #include <QStackedWidget>
 
 #include <cassert>
-#include <infrastructure/widget/Type.hpp>
 #include <memory>
 #include <unordered_map>
+
+#include <infrastructure/widget/Type.hpp>
 
 namespace rps::infrastructure::widget
 {

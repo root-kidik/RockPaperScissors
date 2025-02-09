@@ -22,7 +22,7 @@ private:
     QApplication m_app;
 
     protocol::entity::CommandSender m_command_sender;
-    client::Client m_client;
+    client::Client                  m_client;
 
     widget::Manager m_widget_manager;
 };

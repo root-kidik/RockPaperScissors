@@ -13,6 +13,6 @@ int main(int argc, char* argv[])
     using namespace rps::infrastructure;
 
     RockPaperScissors app{argc, argv};
-    
+
     return app.run();
 }

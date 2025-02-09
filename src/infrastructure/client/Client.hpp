@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QTcpSocket>
+
 #include <RockPaperScissorsProtocol/entity/client/ClientCommandExecutor.hpp>
 
 namespace rps::infrastructure::client
