@@ -1,10 +1,13 @@
+#include <domain/handler/response/CreateRoom.hpp>
 #include <domain/handler/response/Register.hpp>
+#include <domain/handler/response/ConnectToRoom.hpp>
 
 #include <infrastructure/RockPaperScissors.hpp>
 #include <infrastructure/client/TcpSocketConnection.hpp>
 #include <infrastructure/widget/MainMenu.hpp>
 #include <infrastructure/widget/Registration.hpp>
 #include <infrastructure/widget/RoomSearch.hpp>
+#include <infrastructure/widget/RoomWait.hpp>
 
 namespace rps::infrastructure
 {
@@ -23,6 +26,8 @@ int RockPaperScissors::run()
 void RockPaperScissors::init_message_handlers()
 {
     m_message_executor.register_response_handler<domain::handler::response::Register>(m_user, m_widget_manager);
+    m_message_executor.register_response_handler<domain::handler::response::CreateRoom>(m_widget_manager);
+    m_message_executor.register_response_handler<domain::handler::response::ConnectToRoom>(m_widget_manager);
 
     m_socket.connectToHost("localhost", 1234);
     auto connection_wrapper = std::make_shared<client::TcpSocketConnection>(&m_socket);
@@ -39,7 +44,8 @@ void RockPaperScissors::init_widgets()
 {
     m_widget_manager.register_widget<widget::MainMenu>(domain::entity::Mode::MainMenu, m_widget_manager);
     m_widget_manager.register_widget<widget::Registration>(domain::entity::Mode::Registration, m_message_sender, m_user, m_connection);
-    m_widget_manager.register_widget<widget::RoomSearch>(domain::entity::Mode::RoomSearch);
+    m_widget_manager.register_widget<widget::RoomSearch>(domain::entity::Mode::RoomSearch, m_message_sender, m_user, m_connection);
+    m_widget_manager.register_widget<widget::RoomWait>(domain::entity::Mode::RoomWait);
 
     m_widget_manager.activate_mode(domain::entity::Mode::MainMenu);
 }

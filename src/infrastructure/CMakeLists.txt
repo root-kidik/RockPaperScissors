@@ -17,6 +17,8 @@ set(SRC
     ${SRCROOT}/widget/Registration.cpp
     ${SRCROOT}/widget/RoomSearch.hpp
     ${SRCROOT}/widget/RoomSearch.cpp
+    ${SRCROOT}/widget/RoomWait.hpp
+    ${SRCROOT}/widget/RoomWait.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})

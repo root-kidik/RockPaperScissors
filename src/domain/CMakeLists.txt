@@ -11,6 +11,17 @@ set(SRC
     ${SRCROOT}/handler/request/CardForced.cpp
     ${SRCROOT}/handler/response/Register.hpp
     ${SRCROOT}/handler/response/Register.cpp
+    ${SRCROOT}/handler/response/CreateRoom.hpp
+    ${SRCROOT}/handler/response/CreateRoom.cpp
+    ${SRCROOT}/handler/response/ConnectToRoom.hpp
+    ${SRCROOT}/handler/response/ConnectToRoom.cpp
+
+    ${SRCROOT}/model/Registration.hpp
+    ${SRCROOT}/model/Registration.cpp
+    ${SRCROOT}/model/RoomSearch.hpp
+    ${SRCROOT}/model/RoomSearch.cpp
+    ${SRCROOT}/model/RoomWait.hpp
+    ${SRCROOT}/model/RoomWait.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})

@@ -9,6 +9,7 @@ enum class Mode
     MainMenu,
     Registration,
     RoomSearch,
+    RoomWait,
     End,
 };
 

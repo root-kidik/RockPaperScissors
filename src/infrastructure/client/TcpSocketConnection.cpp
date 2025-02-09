@@ -22,6 +22,7 @@ void TcpSocketConnection::send(std::string&& data)
         return;
 
     m_tcp_socket->write(data.c_str());
+    m_tcp_socket->waitForBytesWritten();
 }
 
 void TcpSocketConnection::disconnect()

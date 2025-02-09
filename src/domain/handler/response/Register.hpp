@@ -8,12 +8,12 @@ namespace rps::domain
 namespace interface
 {
 class ModeManager;
-}
+} // namespace interface
 
 namespace entity
 {
 struct User;
-}
+} // namespace entity
 
 } // namespace rps::domain
 

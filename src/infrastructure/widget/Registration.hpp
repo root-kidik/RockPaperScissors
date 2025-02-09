@@ -5,10 +5,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include <domain/entity/User.hpp>
-
-#include <RockPaperScissorsProtocol/entity/MessageSender.hpp>
-#include <RockPaperScissorsProtocol/interface/Connection.hpp>
+#include <domain/model/Registration.hpp>
 
 namespace rps::infrastructure::widget
 {
@@ -23,9 +20,7 @@ public:
                  const std::shared_ptr<protocol::interface::Connection>& connection);
 
 private:
-    protocol::entity::MessageSender&                        m_message_sender;
-    domain::entity::User&                                   m_user;
-    const std::shared_ptr<protocol::interface::Connection>& m_connection;
+    domain::model::Registration m_model;
 
     QVBoxLayout m_layout;
 
