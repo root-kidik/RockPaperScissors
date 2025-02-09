@@ -15,12 +15,10 @@ class Registration : public QWidget
     Q_OBJECT
 
 public:
-    Registration(protocol::entity::MessageSender&                        message_sender,
-                 domain::entity::User&                                   user,
-                 const std::shared_ptr<protocol::interface::Connection>& connection);
+    Registration(domain::model::Registration& model);
 
 private:
-    domain::model::Registration m_model;
+    domain::model::Registration& m_model;
 
     QVBoxLayout m_layout;
 

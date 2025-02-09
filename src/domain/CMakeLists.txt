@@ -7,8 +7,9 @@ set(SRC
     ${SRCROOT}/entity/Uuid.hpp
     ${SRCROOT}/entity/User.hpp
 
-    ${SRCROOT}/handler/request/CardForced.hpp
-    ${SRCROOT}/handler/request/CardForced.cpp
+    ${SRCROOT}/handler/request/NewPlayerAdded.hpp
+    ${SRCROOT}/handler/request/NewPlayerAdded.cpp
+
     ${SRCROOT}/handler/response/Register.hpp
     ${SRCROOT}/handler/response/Register.cpp
     ${SRCROOT}/handler/response/CreateRoom.hpp

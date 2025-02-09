@@ -5,6 +5,9 @@
 
 #include <domain/entity/Mode.hpp>
 #include <domain/entity/User.hpp>
+#include <domain/model/Registration.hpp>
+#include <domain/model/Room.hpp>
+#include <domain/model/Searching.hpp>
 
 #include <infrastructure/widget/Manager.hpp>
 
@@ -27,12 +30,16 @@ private:
 
     QApplication m_app;
 
+    domain::entity::User m_user;
+
     QTcpSocket                                       m_socket;
     protocol::entity::client::ClientMessageExecutor  m_message_executor;
     protocol::entity::MessageSender                  m_message_sender;
     std::shared_ptr<protocol::interface::Connection> m_connection;
 
-    domain::entity::User m_user;
+    domain::model::Registration m_registration_model;
+    domain::model::Searching    m_searcing_model;
+    domain::model::Room         m_room_model;
 
     widget::Manager m_widget_manager;
 };

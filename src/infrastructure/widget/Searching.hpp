@@ -15,9 +15,7 @@ class Searching : public QWidget
     Q_OBJECT
 
 public:
-    Searching(protocol::entity::MessageSender&                        message_sender,
-              domain::entity::User&                                   user,
-              const std::shared_ptr<protocol::interface::Connection>& connection);
+    Searching(domain::model::Searching& model);
 
 private:
     domain::model::Searching m_model;
