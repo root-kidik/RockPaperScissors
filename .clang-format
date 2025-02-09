@@ -94,6 +94,8 @@ MaxEmptyLinesToKeep: 2
 # Sorting
 IncludeBlocks: Regroup
 IncludeCategories:
+  - Priority: 99
+    Regex: "^<Q(.+)>$"
   - Priority: 100
     Regex: "^<(.+)>$"
   - Priority: 200

@@ -6,19 +6,13 @@ Q_IMPORT_PLUGIN(QXcbIntegrationPlugin)
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
-#include <QApplication>
-
-#include <infrastructure/widget/MainMenuWidget.hpp>
-#include <infrastructure/client/Client.hpp>
+#include <infrastructure/RockPaperScissors.hpp>
 
 int main(int argc, char* argv[])
 {
-    QApplication app(argc, argv);
+    using namespace rps::infrastructure;
 
-    rps::infrastructure::widget::MainMenuWidget main_menu;
-    main_menu.show();
-
-    rps::infrastructure::client::Client client;
-
-    return app.exec();
+    RockPaperScissors app{argc, argv};
+    
+    return app.run();
 }

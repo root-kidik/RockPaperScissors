@@ -11,15 +11,17 @@ TcpSocketConnection::TcpSocketConnection(QTcpSocket* tcp_socket) : m_tcp_socket{
 
 bool TcpSocketConnection::is_connected() const
 {
-    return m_tcp_socket != nullptr;
+    return m_tcp_socket;
 }
 
-void TcpSocketConnection::send(const std::string& data)
+void TcpSocketConnection::send(std::string&& data)
 {
-    assert(m_tcp_socket != nullptr && "Connection is failed!");
+    assert(m_tcp_socket && "Connection is failed!");
 
-    if (m_tcp_socket != nullptr)
-        m_tcp_socket->write(data.c_str());
+    if (!m_tcp_socket)
+        return;
+
+    m_tcp_socket->write(data.c_str());
 }
 
 void TcpSocketConnection::disconnect()

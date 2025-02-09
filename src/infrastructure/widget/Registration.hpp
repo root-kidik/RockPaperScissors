@@ -1,7 +1,6 @@
 #pragma once
 
-#include <QHBoxLayout>
-#include <QLabel>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -9,13 +8,18 @@
 namespace rps::infrastructure::widget
 {
 
-class MainMenuWidget : public QWidget
+class Registration : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainMenuWidget();
-    ~MainMenuWidget();
+    Registration();
+
+private:
+    QVBoxLayout m_layout;
+
+    QLineEdit   m_name_input;
+    QPushButton m_register_button;
 };
 
 } // namespace rps::infrastructure::widget
