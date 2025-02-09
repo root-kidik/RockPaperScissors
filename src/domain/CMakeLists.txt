@@ -7,8 +7,8 @@ set(SRC
     ${SRCROOT}/entity/Uuid.hpp
     ${SRCROOT}/entity/User.hpp
 
-    ${SRCROOT}/handler/CardForcedNominatedHandler.hpp
-    ${SRCROOT}/handler/CardForcedNominatedHandler.cpp
+    ${SRCROOT}/handler/CardForced.hpp
+    ${SRCROOT}/handler/CardForced.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})
