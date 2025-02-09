@@ -3,11 +3,9 @@
 namespace rps::domain::handler
 {
 
-protocol::entity::client::response::Status CardForced::handle(
-    protocol::entity::client::request::CardForcedNominated&& request,
-    const std::shared_ptr<protocol::interface::Connection>&  connection)
+CardForced::Response CardForced::handle(Request&& request, const std::shared_ptr<protocol::interface::Connection>& connection)
 {
-    return protocol::entity::client::response::Status();
+    return Response();
 }
 
 } // namespace rps::domain::handler
