@@ -15,7 +15,7 @@ m_quit_button{"Выйти"}
 
     connect(&m_start_game_button,
             &QPushButton::pressed,
-            [this]() { m_widget_manager.activate_widget(widget::Type::Registration); });
+            [this]() { m_widget_manager.activate_mode(domain::entity::Mode::Registration); });
     connect(&m_quit_button, &QPushButton::pressed, [this]() { QApplication::quit(); });
 
     m_layout.addWidget(&m_start_game_button);

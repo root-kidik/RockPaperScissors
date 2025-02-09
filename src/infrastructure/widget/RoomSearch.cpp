@@ -1,14 +1,10 @@
-#pragma once
+#include <infrastructure/widget/RoomSearch.hpp>
 
 namespace rps::infrastructure::widget
 {
 
-enum class Type
+RoomSearch::RoomSearch()
 {
-    Begin,
-    MainMenu,
-    Registration,
-    End,
-};
+}
 
 } // namespace rps::infrastructure::widget

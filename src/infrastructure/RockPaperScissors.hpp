@@ -1,12 +1,15 @@
 #pragma once
 
 #include <QApplication>
+#include <QTcpSocket>
 
-#include <infrastructure/client/Client.hpp>
+#include <domain/entity/Mode.hpp>
+#include <domain/entity/User.hpp>
+
 #include <infrastructure/widget/Manager.hpp>
-#include <infrastructure/widget/Type.hpp>
 
 #include <RockPaperScissorsProtocol/entity/MessageSender.hpp>
+#include <RockPaperScissorsProtocol/entity/client/ClientMessageExecutor.hpp>
 
 namespace rps::infrastructure
 {
@@ -19,10 +22,17 @@ public:
     int run();
 
 private:
+    void init_message_handlers();
+    void init_widgets();
+
     QApplication m_app;
 
-    protocol::entity::MessageSender m_message_sender;
-    client::Client                  m_client;
+    QTcpSocket                                       m_socket;
+    protocol::entity::client::ClientMessageExecutor  m_message_executor;
+    protocol::entity::MessageSender                  m_message_sender;
+    std::shared_ptr<protocol::interface::Connection> m_connection;
+
+    domain::entity::User m_user;
 
     widget::Manager m_widget_manager;
 };

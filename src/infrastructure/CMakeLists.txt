@@ -7,17 +7,16 @@ set(SRC
     ${SRCROOT}/RockPaperScissors.hpp
     ${SRCROOT}/RockPaperScissors.cpp
 
-    ${SRCROOT}/client/Client.hpp
-    ${SRCROOT}/client/Client.cpp
     ${SRCROOT}/client/TcpSocketConnection.hpp
     ${SRCROOT}/client/TcpSocketConnection.cpp
 
     ${SRCROOT}/widget/Manager.hpp
-    ${SRCROOT}/widget/Type.hpp
     ${SRCROOT}/widget/MainMenu.hpp
     ${SRCROOT}/widget/MainMenu.cpp
     ${SRCROOT}/widget/Registration.hpp
     ${SRCROOT}/widget/Registration.cpp
+    ${SRCROOT}/widget/RoomSearch.hpp
+    ${SRCROOT}/widget/RoomSearch.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})
