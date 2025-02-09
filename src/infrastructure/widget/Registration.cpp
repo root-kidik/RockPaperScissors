@@ -20,6 +20,8 @@ m_register_button{"Зарегистрироваться"}
             &QPushButton::pressed,
             [this]()
             {
+                m_user.nickname = m_name_input.text().toStdString();
+
                 protocol::entity::server::request::Register request;
                 request.user_nickname = m_name_input.text().toStdString();
 
