@@ -15,7 +15,7 @@ Client::Client()
     connect(&m_socket,
             &QTcpSocket::readyRead,
             [connection_wrapper, this]()
-            { m_command_executor.execute_command(m_socket.readAll().toStdString(), connection_wrapper); });
+            { m_message_executor.execute_message(m_socket.readAll().toStdString(), connection_wrapper); });
 }
 
 } // namespace rps::infrastructure::client

@@ -2,7 +2,7 @@
 
 #include <QTcpSocket>
 
-#include <RockPaperScissorsProtocol/entity/client/ClientCommandExecutor.hpp>
+#include <RockPaperScissorsProtocol/entity/client/ClientMessageExecutor.hpp>
 
 namespace rps::infrastructure::client
 {
@@ -17,7 +17,7 @@ public:
 private:
     QTcpSocket m_socket;
 
-    protocol::entity::client::ClientCommandExecutor m_command_executor;
+    protocol::entity::client::ClientMessageExecutor m_message_executor;
 };
 
 } // namespace rps::infrastructure::client

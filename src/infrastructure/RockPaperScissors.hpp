@@ -6,7 +6,7 @@
 #include <infrastructure/widget/Manager.hpp>
 #include <infrastructure/widget/Type.hpp>
 
-#include <RockPaperScissorsProtocol/entity/CommandSender.hpp>
+#include <RockPaperScissorsProtocol/entity/MessageSender.hpp>
 
 namespace rps::infrastructure
 {
@@ -21,7 +21,7 @@ public:
 private:
     QApplication m_app;
 
-    protocol::entity::CommandSender m_command_sender;
+    protocol::entity::MessageSender m_message_sender;
     client::Client                  m_client;
 
     widget::Manager m_widget_manager;
