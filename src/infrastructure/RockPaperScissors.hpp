@@ -9,6 +9,7 @@
 #include <domain/model/Room.hpp>
 #include <domain/model/Searching.hpp>
 
+#include <infrastructure/storage/Pixmap.hpp>
 #include <infrastructure/widget/Manager.hpp>
 
 #include <RockPaperScissorsProtocol/entity/MessageSender.hpp>
@@ -26,9 +27,12 @@ public:
 
 private:
     void init_message_handlers();
+    void connect_to_server();
     void init_widgets();
 
     QApplication m_app;
+
+    storage::Pixmap m_pixmap_storage;
 
     domain::entity::User m_user;
 

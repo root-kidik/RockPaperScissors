@@ -20,6 +20,7 @@ m_searcing_model{m_message_sender, m_user, m_connection},
 m_room_model{m_message_sender, m_user, m_connection}
 {
     init_message_handlers();
+    connect_to_server();
     init_widgets();
 }
 
@@ -35,7 +36,10 @@ void RockPaperScissors::init_message_handlers()
     m_message_executor.register_response_handler<domain::handler::response::ConnectToRoom>(m_widget_manager);
 
     m_message_executor.register_request_handler<domain::handler::request::NewPlayerAdded>(m_room_model);
+}
 
+void RockPaperScissors::connect_to_server()
+{
     m_socket.connectToHost("localhost", 1234);
     auto connection_wrapper = std::make_shared<client::TcpSocketConnection>(&m_socket);
     m_connection            = connection_wrapper;
@@ -52,7 +56,7 @@ void RockPaperScissors::init_widgets()
     m_widget_manager.register_widget<widget::MainMenu>(domain::entity::Mode::MainMenu, m_widget_manager);
     m_widget_manager.register_widget<widget::Registration>(domain::entity::Mode::Registration, m_registration_model);
     m_widget_manager.register_widget<widget::Searching>(domain::entity::Mode::Searching, m_searcing_model);
-    m_widget_manager.register_widget<widget::Room>(domain::entity::Mode::Room, m_room_model);
+    m_widget_manager.register_widget<widget::Room>(domain::entity::Mode::Room, m_room_model, m_pixmap_storage);
 
     m_widget_manager.activate_mode(domain::entity::Mode::Room);
 }

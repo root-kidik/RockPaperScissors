@@ -10,6 +10,11 @@ set(SRC
     ${SRCROOT}/client/TcpSocketConnection.hpp
     ${SRCROOT}/client/TcpSocketConnection.cpp
 
+    ${SRCROOT}/storage/Pixmap.hpp
+    ${SRCROOT}/storage/Pixmap.cpp
+
+    ${SRCROOT}/widget/HandOfCards.hpp
+    ${SRCROOT}/widget/HandOfCards.cpp
     ${SRCROOT}/widget/Manager.hpp
     ${SRCROOT}/widget/MainMenu.hpp
     ${SRCROOT}/widget/MainMenu.cpp
@@ -36,5 +41,5 @@ find_package(Qt6 COMPONENTS ${INTEGRATION_PLUGIN} Core Widgets Network REQUIRED)
 target_link_libraries(${TARGET_NAME} PUBLIC Qt6::${INTEGRATION_PLUGIN} Qt6::Core Qt6::Widgets Qt6::Network ${PROJECT_NAME}::domain)
 
 qt_add_resources(${TARGET_NAME} "assets"
-    FILES ../../assets/Rock.png
+    FILES ../../assets/Rock.png ../../assets/Paper.png ../../assets/Scissors.png
 )

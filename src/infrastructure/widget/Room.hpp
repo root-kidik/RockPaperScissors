@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QGraphicsScene>
-#include <QGraphicsView>
+#include <QGridLayout>
+#include <QHBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -9,20 +9,31 @@
 
 #include <domain/model/Room.hpp>
 
+#include <infrastructure/widget/HandOfCards.hpp>
+
 namespace rps::infrastructure::widget
 {
 
-class Room : public QGraphicsView
+class Room : public QWidget
 {
     Q_OBJECT
 
 public:
-    Room(domain::model::Room& model);
+    Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage);
 
 private:
-    domain::model::Room& m_model;
+    domain::model::Room&   m_model;
+    const storage::Pixmap& m_pixmap_storage;
 
-    QGraphicsScene m_scene;
+    QGridLayout m_layout;
+
+    HandOfCards m_player_hand;
+
+    HandOfCards m_north_hand;
+    HandOfCards m_west_hand;
+    HandOfCards m_east_hand;
+
+    HandOfCards m_table;
 };
 
 } // namespace rps::infrastructure::widget
