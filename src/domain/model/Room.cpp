@@ -1,5 +1,3 @@
-#include "Room.hpp"
-
 #include <domain/model/Room.hpp>
 
 namespace rps::domain::model
@@ -25,6 +23,7 @@ void Room::add_new_player(std::string&& player_nickname)
     m_players.push_back(player_nickname);
 
     assert(m_on_new_player_added && "Subcriber must be setted!");
+
     m_on_new_player_added(std::move(player_nickname));
 }
 

@@ -25,41 +25,6 @@ m_table{pixmap_storage, HandOfCards::Type::Horizontal}
 
     using namespace rps::protocol::entity;
 
-    m_player_hand.add_card(Card::Scissors);
-    m_player_hand.add_card(Card::Paper);
-    m_player_hand.add_card(Card::Rock);
-    m_player_hand.add_card(Card::Scissors);
-    m_player_hand.add_card(Card::Rock);
-    m_player_hand.add_card(Card::Paper);
-
-    m_north_hand.add_card(Card::Backface);
-    m_north_hand.add_card(Card::Backface);
-    m_north_hand.add_card(Card::Backface);
-    m_north_hand.add_card(Card::Backface);
-    m_north_hand.add_card(Card::Backface);
-    m_north_hand.add_card(Card::Backface);
-
-    m_west_hand.add_card(Card::Backface);
-    m_west_hand.add_card(Card::Backface);
-    m_west_hand.add_card(Card::Backface);
-    m_west_hand.add_card(Card::Backface);
-    m_west_hand.add_card(Card::Backface);
-    m_west_hand.add_card(Card::Backface);
-
-    m_east_hand.add_card(Card::Backface);
-    m_east_hand.add_card(Card::Backface);
-    m_east_hand.add_card(Card::Backface);
-    m_east_hand.add_card(Card::Backface);
-    m_east_hand.add_card(Card::Backface);
-    m_east_hand.add_card(Card::Backface);
-
-    m_table.add_card(Card::Scissors);
-    m_table.add_card(Card::Paper);
-    m_table.add_card(Card::Rock);
-    m_table.add_card(Card::Scissors);
-    m_table.add_card(Card::Rock);
-    m_table.add_card(Card::Paper);
-
     m_layout.addWidget(&m_north_hand, 0, 1);
     m_layout.addWidget(&m_west_hand, 1, 0);
     m_layout.addWidget(&m_east_hand, 1, 2);
@@ -70,7 +35,6 @@ m_table{pixmap_storage, HandOfCards::Type::Horizontal}
     m_model.subsribe_on_new_player_addition(
         [this](std::string&& player_nickname)
         {
-            // TODO(@rtkid): handle
         });
 }
 
