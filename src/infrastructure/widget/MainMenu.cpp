@@ -3,6 +3,8 @@
 #include <infrastructure/widget/MainMenu.hpp>
 #include <infrastructure/widget/Manager.hpp>
 
+#include <infrastructure/util/Constant.hpp>
+
 namespace rps::infrastructure::widget
 {
 
@@ -12,6 +14,14 @@ m_start_game_button{"Начать игру"},
 m_quit_button{"Выйти"}
 {
     setLayout(&m_layout);
+
+    m_layout.setAlignment(Qt::AlignCenter);
+
+    m_start_game_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_quit_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    m_start_game_button.setMaximumSize(util::kMaxButtonSize);
+    m_quit_button.setMaximumSize(util::kMaxButtonSize);
 
     connect(&m_start_game_button,
             &QPushButton::pressed,

@@ -1,3 +1,4 @@
+#include <infrastructure/util/Constant.hpp>
 #include <infrastructure/widget/Searching.hpp>
 
 namespace rps::infrastructure::widget
@@ -9,6 +10,14 @@ m_room_name_input{"Введите имя комнаты"},
 m_create_room_button{"Создать"}
 {
     setLayout(&m_layout);
+
+    m_layout.setAlignment(Qt::AlignCenter);
+
+    m_room_name_input.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_create_room_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    m_room_name_input.setMaximumSize(util::kMaxButtonSize);
+    m_create_room_button.setMaximumSize(util::kMaxButtonSize);
 
     connect(&m_create_room_button,
             &QPushButton::pressed,

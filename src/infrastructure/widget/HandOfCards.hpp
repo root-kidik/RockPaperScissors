@@ -3,6 +3,7 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QWidget>
+#include <QResizeEvent>
 
 #include <cstdint>
 
@@ -37,7 +38,7 @@ private:
 
     std::uint8_t m_cards_count;
 
-    std::array<QPushButton, 6> m_cards;
+    std::array<QPushButton, protocol::entity::kMaxCardsPerPlayer> m_cards;
 
     Type m_type;
 };

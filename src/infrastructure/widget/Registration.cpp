@@ -1,3 +1,4 @@
+#include <infrastructure/util/Constant.hpp>
 #include <infrastructure/widget/Registration.hpp>
 
 namespace rps::infrastructure::widget
@@ -9,6 +10,14 @@ m_name_input{"Ваше имя"},
 m_register_button{"Зарегистрироваться"}
 {
     setLayout(&m_layout);
+
+    m_layout.setAlignment(Qt::AlignCenter);
+
+    m_name_input.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_register_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    m_name_input.setMaximumSize(util::kMaxButtonSize);
+    m_register_button.setMaximumSize(util::kMaxButtonSize);
 
     connect(&m_register_button,
             &QPushButton::pressed,

@@ -41,5 +41,5 @@ find_package(Qt6 COMPONENTS ${INTEGRATION_PLUGIN} Core Widgets Network REQUIRED)
 target_link_libraries(${TARGET_NAME} PUBLIC Qt6::${INTEGRATION_PLUGIN} Qt6::Core Qt6::Widgets Qt6::Network ${PROJECT_NAME}::domain)
 
 qt_add_resources(${TARGET_NAME} "assets"
-    FILES ../../assets/Rock.png ../../assets/Paper.png ../../assets/Scissors.png
+    FILES ../../assets/Rock.png ../../assets/Paper.png ../../assets/Scissors.png ../../assets/Backface.png
 )
