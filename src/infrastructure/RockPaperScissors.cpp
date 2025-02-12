@@ -58,7 +58,7 @@ void RockPaperScissors::init_widgets()
     m_widget_manager.register_widget<widget::Searching>(domain::entity::Mode::Searching, m_searcing_model);
     m_widget_manager.register_widget<widget::Room>(domain::entity::Mode::Room, m_room_model, m_pixmap_storage);
 
-    m_widget_manager.activate_mode(domain::entity::Mode::Room);
+    m_widget_manager.activate_mode(domain::entity::Mode::MainMenu);
 }
 
 } // namespace rps::infrastructure

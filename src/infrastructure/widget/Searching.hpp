@@ -24,6 +24,7 @@ private:
 
     QLineEdit   m_room_name_input;
     QPushButton m_create_room_button;
+    QPushButton m_connect_to_room_button;
 };
 
 } // namespace rps::infrastructure::widget

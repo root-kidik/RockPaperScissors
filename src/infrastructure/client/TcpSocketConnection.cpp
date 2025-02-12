@@ -16,8 +16,6 @@ bool TcpSocketConnection::is_connected() const
 
 void TcpSocketConnection::send(std::string&& data)
 {
-    assert(m_tcp_socket && "Connection is failed!");
-
     if (!m_tcp_socket || m_tcp_socket->state() != QAbstractSocket::ConnectedState)
         return;
 
