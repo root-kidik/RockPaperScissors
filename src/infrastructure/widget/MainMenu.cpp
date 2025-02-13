@@ -16,6 +16,9 @@ m_quit_button{"Выйти"}
 
     m_layout.setAlignment(Qt::AlignCenter);
 
+    m_start_game_button.setStyleSheet(util::kDefaultGreenButtonStyle);
+    m_quit_button.setStyleSheet(util::kDefaultRedButtonStyle);
+
     m_start_game_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_quit_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

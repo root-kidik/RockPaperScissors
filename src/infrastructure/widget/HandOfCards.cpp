@@ -5,11 +5,27 @@
 
 namespace
 {
-constexpr std::uint32_t kBaseWidthCard  = 90;
-constexpr std::uint32_t kBaseHeightCard = 160;
+constexpr std::uint32_t kBaseWidthCard  = 72;
+constexpr std::uint32_t kBaseHeightCard = 128;
 
 constexpr std::int8_t kVerticalLeftRotate  = -90;
 constexpr std::int8_t kVerticalRightRotate = 90;
+
+constexpr const char* kDefaultCardStyle =
+    "QPushButton {"
+    "background-color:rgb(76, 175, 80);"
+    "border-radius: 10px;"
+    "padding: 10px;"
+    "}"
+    "QPushButton:hover {"
+    "background-color:rgb(32, 146, 37);"
+    "}"
+    "QPushButton:pressed {"
+    "background-color:rgb(22, 102, 26);"
+    "}";
+
+constexpr QSize kMaxAdditionSize{20, 20};
+
 } // namespace
 
 namespace rps::infrastructure::widget
@@ -29,8 +45,7 @@ m_type{type}
 
     setLayout(layout);
 
-    for (auto& card : m_cards)
-        card.setStyleSheet("QPushButton { border: none; padding: 0; }");
+    layout->setAlignment(Qt::AlignCenter);
 }
 
 void HandOfCards::add_card(protocol::entity::Card card)
@@ -58,10 +73,16 @@ void HandOfCards::add_card(protocol::entity::Card card)
     else
         card_widget.setIcon(original_pixmap);
 
+    card_widget.setStyleSheet(kDefaultCardStyle);
+
+    QSize size;
     if (m_type == Type::Horizontal)
-        card_widget.setIconSize({kBaseWidthCard, kBaseHeightCard});
+        size = {kBaseWidthCard, kBaseHeightCard};
     else
-        card_widget.setIconSize({kBaseHeightCard, kBaseWidthCard});
+        size = {kBaseHeightCard, kBaseWidthCard};
+
+    card_widget.setIconSize(size);
+    card_widget.setMaximumSize(size + kMaxAdditionSize);
 
     layout()->addWidget(&card_widget);
 

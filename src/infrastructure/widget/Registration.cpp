@@ -13,6 +13,9 @@ m_register_button{"Зарегистрироваться"}
 
     m_layout.setAlignment(Qt::AlignCenter);
 
+    m_name_input.setStyleSheet(util::kDefaultLineEditStyle);
+    m_register_button.setStyleSheet(util::kDefaultGreenButtonStyle);
+
     m_name_input.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_register_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

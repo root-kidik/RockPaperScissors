@@ -14,6 +14,10 @@ m_connect_to_room_button{"Присоединиться"}
 
     m_layout.setAlignment(Qt::AlignCenter);
 
+    m_room_name_input.setStyleSheet(util::kDefaultLineEditStyle);
+    m_create_room_button.setStyleSheet(util::kDefaultGreenButtonStyle);
+    m_connect_to_room_button.setStyleSheet(util::kDefaultGreenButtonStyle);
+
     m_room_name_input.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_create_room_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_connect_to_room_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
