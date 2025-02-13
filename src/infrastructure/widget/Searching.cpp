@@ -6,13 +6,14 @@ namespace rps::infrastructure::widget
 
 Searching::Searching(domain::model::Searching& model) :
 m_model{model},
-m_room_name_input{"Введите имя комнаты"},
 m_create_room_button{"Создать"},
 m_connect_to_room_button{"Присоединиться"}
 {
     setLayout(&m_layout);
 
     m_layout.setAlignment(Qt::AlignCenter);
+
+    m_room_name_input.setPlaceholderText("Введите имя игровой комнаты");
 
     m_room_name_input.setStyleSheet(util::kDefaultLineEditStyle);
     m_create_room_button.setStyleSheet(util::kDefaultGreenButtonStyle);

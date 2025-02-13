@@ -7,6 +7,8 @@
 
 #include <domain/model/Searching.hpp>
 
+#include <infrastructure/widget/NoSpaceLineEdit.hpp>
+
 namespace rps::infrastructure::widget
 {
 
@@ -22,9 +24,9 @@ private:
 
     QVBoxLayout m_layout;
 
-    QLineEdit   m_room_name_input;
-    QPushButton m_create_room_button;
-    QPushButton m_connect_to_room_button;
+    NoSpaceLineEdit m_room_name_input;
+    QPushButton     m_create_room_button;
+    QPushButton     m_connect_to_room_button;
 };
 
 } // namespace rps::infrastructure::widget

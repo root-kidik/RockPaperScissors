@@ -1,11 +1,12 @@
 #pragma once
 
-#include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
 
 #include <domain/model/Registration.hpp>
+
+#include <infrastructure/widget/NoSpaceLineEdit.hpp>
 
 namespace rps::infrastructure::widget
 {
@@ -22,8 +23,8 @@ private:
 
     QVBoxLayout m_layout;
 
-    QLineEdit   m_name_input;
-    QPushButton m_register_button;
+    NoSpaceLineEdit m_name_input;
+    QPushButton     m_register_button;
 };
 
 } // namespace rps::infrastructure::widget

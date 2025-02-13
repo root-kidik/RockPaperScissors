@@ -13,6 +13,8 @@ set(SRC
     ${SRCROOT}/storage/Pixmap.hpp
     ${SRCROOT}/storage/Pixmap.cpp
 
+    ${SRCROOT}/widget/NoSpaceLineEdit.hpp
+    ${SRCROOT}/widget/NoSpaceLineEdit.cpp
     ${SRCROOT}/widget/HandOfCards.hpp
     ${SRCROOT}/widget/HandOfCards.cpp
     ${SRCROOT}/widget/Manager.hpp

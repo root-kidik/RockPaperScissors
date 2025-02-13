@@ -6,13 +6,14 @@ namespace rps::infrastructure::widget
 
 Registration::Registration(domain::model::Registration& model) :
 m_model{model},
-m_name_input{"Ваше имя"},
 m_register_button{"Зарегистрироваться"}
 {
     setLayout(&m_layout);
 
     m_layout.setAlignment(Qt::AlignCenter);
 
+    m_name_input.setPlaceholderText("Введите ваше имя");
+    
     m_name_input.setStyleSheet(util::kDefaultLineEditStyle);
     m_register_button.setStyleSheet(util::kDefaultGreenButtonStyle);
 
