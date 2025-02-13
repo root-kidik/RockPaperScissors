@@ -4,14 +4,18 @@
 namespace rps::infrastructure::widget
 {
 
-Room::Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage) :
+Room::Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage, domain::entity::User& user) :
 m_model{model},
 m_pixmap_storage{pixmap_storage},
+m_user{user},
 m_player_hand{pixmap_storage, HandOfCards::Type::Horizontal},
 m_east_hand{pixmap_storage, HandOfCards::Type::VerticalRight},
 m_west_hand{pixmap_storage, HandOfCards::Type::VerticalLeft},
 m_north_hand{pixmap_storage, HandOfCards::Type::Horizontal},
-m_table{pixmap_storage, HandOfCards::Type::Horizontal}
+m_table{pixmap_storage, HandOfCards::Type::Horizontal},
+m_has_north{},
+m_has_west{},
+m_has_east{}
 {
     setLayout(&m_layout);
 
@@ -23,8 +27,6 @@ m_table{pixmap_storage, HandOfCards::Type::Horizontal}
     m_north_hand.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_table.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    using namespace rps::protocol::entity;
-
     m_layout.addWidget(&m_north_hand, 0, 1);
     m_layout.addWidget(&m_west_hand, 1, 0);
     m_layout.addWidget(&m_east_hand, 1, 2);
@@ -32,10 +34,37 @@ m_table{pixmap_storage, HandOfCards::Type::Horizontal}
 
     m_layout.addWidget(&m_table, 1, 1);
 
+    generate_full_backface_deck(m_player_hand);
+
     m_model.subsribe_on_new_player_addition(
         [this](std::string&& player_nickname)
         {
+            if (!m_has_north)
+            {
+                m_has_north = true;
+                generate_full_backface_deck(m_north_hand);
+            }
+            else if (!m_has_west)
+            {
+                m_has_west = true;
+                generate_full_backface_deck(m_west_hand);
+            }
+            else if (!m_has_east)
+            {
+                m_has_east = true;
+                generate_full_backface_deck(m_east_hand);
+            }
+            else
+                assert(false && "Added some strange player");
         });
+}
+
+void Room::generate_full_backface_deck(HandOfCards& hand)
+{
+    using namespace rps::protocol::entity;
+
+    for (std::uint8_t i = 0; i < protocol::entity::kMaxCardsPerPlayer; i++)
+        hand.add_card(Card::Backface);
 }
 
 } // namespace rps::infrastructure::widget

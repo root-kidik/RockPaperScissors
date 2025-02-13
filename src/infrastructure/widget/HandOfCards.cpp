@@ -8,7 +8,7 @@ namespace
 constexpr std::uint32_t kBaseWidthCard  = 90;
 constexpr std::uint32_t kBaseHeightCard = 160;
 
-constexpr std::int8_t kVerticalLeftRotate = -90;
+constexpr std::int8_t kVerticalLeftRotate  = -90;
 constexpr std::int8_t kVerticalRightRotate = 90;
 } // namespace
 

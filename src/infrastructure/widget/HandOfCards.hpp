@@ -2,8 +2,8 @@
 
 #include <QLayout>
 #include <QPushButton>
-#include <QWidget>
 #include <QResizeEvent>
+#include <QWidget>
 
 #include <cstdint>
 

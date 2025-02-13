@@ -19,11 +19,14 @@ class Room : public QWidget
     Q_OBJECT
 
 public:
-    Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage);
+    Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage, domain::entity::User& user);
 
 private:
+    void generate_full_backface_deck(HandOfCards& hand);
+
     domain::model::Room&   m_model;
     const storage::Pixmap& m_pixmap_storage;
+    domain::entity::User&  m_user;
 
     QGridLayout m_layout;
 
@@ -34,6 +37,10 @@ private:
     HandOfCards m_east_hand;
 
     HandOfCards m_table;
+
+    bool m_has_north;
+    bool m_has_west;
+    bool m_has_east;
 };
 
 } // namespace rps::infrastructure::widget
