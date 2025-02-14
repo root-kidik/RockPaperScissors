@@ -18,6 +18,8 @@ public:
          domain::entity::User&                                   user,
          const std::shared_ptr<protocol::interface::Connection>& connection);
 
+    void start_game();
+
     void subscribe_on_room_creation(std::function<void()> callback);
     void create_room();
 

@@ -1,5 +1,7 @@
 #include <domain/model/Room.hpp>
 
+#include <RockPaperScissorsProtocol/entity/server/request/StartGame.hpp>
+
 namespace rps::domain::model
 {
 
@@ -12,13 +14,22 @@ m_connection{connection}
 {
 }
 
+void Room::start_game()
+{
+    protocol::entity::server::request::StartGame request;
+
+    m_message_sender.send(std::move(request), m_connection);
+}
+
 void Room::subscribe_on_room_creation(std::function<void()> callback)
 {
+    assert(!m_on_room_creation && "Subcriber already setted!");
     m_on_room_creation = std::move(callback);
 }
 
 void Room::create_room()
 {
+    assert(m_on_room_creation && "Subcriber must be setted!");
     m_on_room_creation();
 }
 
