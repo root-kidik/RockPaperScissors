@@ -19,9 +19,13 @@ constexpr const char* kDefaultCardStyle =
     "}"
     "QPushButton:hover {"
     "background-color:rgb(32, 146, 37);"
-    "}"
-    "QPushButton:pressed {"
+    "}";
+
+constexpr const char* kPressedCardStyle =
+    "QPushButton {"
     "background-color:rgb(22, 102, 26);"
+    "border-radius: 10px;"
+    "padding: 10px;"
     "}";
 
 constexpr QSize kMaxAdditionSize{20, 20};
@@ -31,10 +35,11 @@ constexpr QSize kMaxAdditionSize{20, 20};
 namespace rps::infrastructure::widget
 {
 
-HandOfCards::HandOfCards(const storage::Pixmap& pixmap_storage, Type type) :
+HandOfCards::HandOfCards(const storage::Pixmap& pixmap_storage, Type type, bool is_player_deck) :
 m_pixmap_storage{pixmap_storage},
 m_cards_count{},
-m_type{type}
+m_type{type},
+m_is_player_deck{is_player_deck}
 {
     QLayout* layout;
 
@@ -87,6 +92,19 @@ void HandOfCards::add_card(protocol::entity::Card card)
     layout()->addWidget(&card_widget);
 
     m_cards_count++;
+
+    if (!m_is_player_deck)
+        return;
+
+    connect(&card_widget,
+            &QPushButton::pressed,
+            [this, &card_widget]()
+            {
+                for (auto& card : m_cards)
+                    card.setStyleSheet(kDefaultCardStyle);
+
+                card_widget.setStyleSheet(kPressedCardStyle);
+            });
 }
 
 } // namespace rps::infrastructure::widget

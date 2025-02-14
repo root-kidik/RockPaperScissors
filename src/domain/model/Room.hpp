@@ -18,6 +18,9 @@ public:
          domain::entity::User&                                   user,
          const std::shared_ptr<protocol::interface::Connection>& connection);
 
+    void subscribe_on_room_creation(std::function<void()> callback);
+    void create_room();
+
     void subsribe_on_new_player_addition(std::function<void(std::string&&)> callback);
     void add_new_player(std::string&& player_nickname);
 
@@ -26,6 +29,8 @@ private:
     domain::entity::User&                                   m_user;
     const std::shared_ptr<protocol::interface::Connection>& m_connection;
     std::function<void(std::string&&)>                      m_on_new_player_added;
+
+    std::function<void()> m_on_room_creation;
 
     std::vector<std::string> m_players;
 };

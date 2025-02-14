@@ -29,7 +29,7 @@ public:
         VerticalRight
     };
 
-    HandOfCards(const storage::Pixmap& pixmap_storage, Type type);
+    HandOfCards(const storage::Pixmap& pixmap_storage, Type type, bool is_player_deck = false);
 
     void add_card(protocol::entity::Card card);
 
@@ -41,6 +41,7 @@ private:
     std::array<QPushButton, protocol::entity::kMaxCardsPerPlayer> m_cards;
 
     Type m_type;
+    bool m_is_player_deck;
 };
 
 } // namespace rps::infrastructure::widget

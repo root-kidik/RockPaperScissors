@@ -41,6 +41,8 @@ private:
     bool m_has_north;
     bool m_has_west;
     bool m_has_east;
+
+    QPushButton m_start_game_button;
 };
 
 } // namespace rps::infrastructure::widget

@@ -32,7 +32,7 @@ int RockPaperScissors::run()
 void RockPaperScissors::init_message_handlers()
 {
     m_message_executor.register_response_handler<domain::handler::response::Register>(m_user, m_widget_manager);
-    m_message_executor.register_response_handler<domain::handler::response::CreateRoom>(m_widget_manager);
+    m_message_executor.register_response_handler<domain::handler::response::CreateRoom>(m_widget_manager, m_room_model);
     m_message_executor.register_response_handler<domain::handler::response::ConnectToRoom>(m_widget_manager, m_room_model);
 
     m_message_executor.register_request_handler<domain::handler::request::NewPlayerAdded>(m_room_model);

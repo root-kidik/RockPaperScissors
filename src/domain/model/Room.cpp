@@ -12,6 +12,16 @@ m_connection{connection}
 {
 }
 
+void Room::subscribe_on_room_creation(std::function<void()> callback)
+{
+    m_on_room_creation = std::move(callback);
+}
+
+void Room::create_room()
+{
+    m_on_room_creation();
+}
+
 void Room::subsribe_on_new_player_addition(std::function<void(std::string&&)> callback)
 {
     assert(!m_on_new_player_added && "Subcriber already setted!");

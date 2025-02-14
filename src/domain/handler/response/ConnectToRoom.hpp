@@ -13,7 +13,7 @@ namespace interface
 {
 class ModeManager;
 }
-} // namespace rps::domain::interface
+} // namespace rps::domain
 
 namespace rps::domain::handler::response
 {
@@ -27,7 +27,7 @@ public:
 
 private:
     interface::ModeManager& m_mode_manager;
-    model::Room& m_model;
+    model::Room&            m_model;
 };
 
 } // namespace rps::domain::handler::response

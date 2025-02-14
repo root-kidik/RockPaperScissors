@@ -5,7 +5,9 @@
 namespace rps::domain::handler::response
 {
 
-ConnectToRoom::ConnectToRoom(interface::ModeManager& mode_manager, model::Room& model) : m_mode_manager{mode_manager}, m_model{model}
+ConnectToRoom::ConnectToRoom(interface::ModeManager& mode_manager, model::Room& model) :
+m_mode_manager{mode_manager},
+m_model{model}
 {
 }
 

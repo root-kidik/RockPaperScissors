@@ -1,4 +1,5 @@
 #include <infrastructure/storage/Pixmap.hpp>
+#include <infrastructure/util/Constant.hpp>
 #include <infrastructure/widget/Room.hpp>
 
 namespace rps::infrastructure::widget
@@ -8,14 +9,15 @@ Room::Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage, do
 m_model{model},
 m_pixmap_storage{pixmap_storage},
 m_user{user},
-m_player_hand{pixmap_storage, HandOfCards::Type::Horizontal},
+m_player_hand{pixmap_storage, HandOfCards::Type::Horizontal, true},
 m_east_hand{pixmap_storage, HandOfCards::Type::VerticalRight},
 m_west_hand{pixmap_storage, HandOfCards::Type::VerticalLeft},
 m_north_hand{pixmap_storage, HandOfCards::Type::Horizontal},
 m_table{pixmap_storage, HandOfCards::Type::Horizontal},
 m_has_north{},
 m_has_west{},
-m_has_east{}
+m_has_east{},
+m_start_game_button{"Начать игру"}
 {
     setLayout(&m_layout);
 
@@ -33,6 +35,25 @@ m_has_east{}
     m_layout.addWidget(&m_player_hand, 2, 1);
 
     m_layout.addWidget(&m_table, 1, 1);
+
+    m_layout.addWidget(&m_start_game_button, 1, 1);
+    m_start_game_button.setHidden(true);
+
+    m_model.subscribe_on_room_creation(
+        [this]()
+        {
+            m_table.setHidden(true);
+            m_start_game_button.setHidden(false);
+            m_start_game_button.setStyleSheet(util::kDefaultGreenButtonStyle);
+
+            connect(&m_start_game_button,
+                    &QPushButton::pressed,
+                    [this]()
+                    {
+                        m_start_game_button.setHidden(true);
+                        m_table.setHidden(false);
+                    });
+        });
 
     generate_full_backface_deck(m_player_hand);
 
