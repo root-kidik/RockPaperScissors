@@ -2,6 +2,7 @@
 
 #include <infrastructure/storage/Pixmap.hpp>
 #include <infrastructure/widget/HandOfCards.hpp>
+#include "HandOfCards.hpp"
 
 namespace
 {
@@ -91,20 +92,36 @@ void HandOfCards::add_card(protocol::entity::Card card)
 
     layout()->addWidget(&card_widget);
 
-    m_cards_count++;
+    auto card_idx = m_cards_count++;
 
     if (!m_is_player_deck)
         return;
 
+    assert(m_on_card_selected && "Callback must be not nullptr");
+
     connect(&card_widget,
             &QPushButton::pressed,
-            [this, &card_widget]()
+            [this, &card_widget, card_idx, card]()
             {
                 for (auto& card : m_cards)
                     card.setStyleSheet(kDefaultCardStyle);
 
                 card_widget.setStyleSheet(kPressedCardStyle);
+
+                m_on_card_selected(card, card_idx);
             });
+}
+
+void HandOfCards::replace_card(CardIdx idx, protocol::entity::Card card)
+{
+    m_cards[idx].setIcon(m_pixmap_storage.get(card));
+}
+
+void HandOfCards::subscribe_on_card_selection(std::function<void(protocol::entity::Card, CardIdx)> callback)
+{
+    assert(!m_on_card_selected && "Subscriber must be nullptr");
+
+    m_on_card_selected = std::move(callback);
 }
 
 } // namespace rps::infrastructure::widget

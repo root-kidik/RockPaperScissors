@@ -4,8 +4,9 @@
 namespace rps::infrastructure::widget
 {
 
-Searching::Searching(domain::model::Searching& model) :
+Searching::Searching(domain::model::Searching& model, domain::model::Room& room) :
 m_model{model},
+m_room{room},
 m_create_room_button{"Создать"},
 m_connect_to_room_button{"Присоединиться"}
 {
@@ -29,11 +30,21 @@ m_connect_to_room_button{"Присоединиться"}
 
     connect(&m_create_room_button,
             &QPushButton::pressed,
-            [this]() { m_model.create_room(m_room_name_input.text().toStdString()); });
+            [this]()
+            {
+                auto name = m_room_name_input.text().toStdString();
+                m_model.create_room(name);
+                m_room.set_name(std::move(name));
+            });
 
     connect(&m_connect_to_room_button,
             &QPushButton::pressed,
-            [this]() { m_model.connect_to_room(m_room_name_input.text().toStdString()); });
+            [this]()
+            {
+                auto name = m_room_name_input.text().toStdString();
+                m_model.connect_to_room(m_room_name_input.text().toStdString());
+                m_room.set_name(std::move(name));
+            });
 
     m_layout.addWidget(&m_room_name_input);
     m_layout.addWidget(&m_create_room_button);

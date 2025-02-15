@@ -43,6 +43,8 @@ private:
     bool m_has_east;
 
     QPushButton m_start_game_button;
+
+    HandOfCards::CardIdx m_free_card_idx;
 };
 
 } // namespace rps::infrastructure::widget

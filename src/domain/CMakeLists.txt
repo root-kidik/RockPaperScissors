@@ -9,6 +9,8 @@ set(SRC
 
     ${SRCROOT}/handler/request/NewPlayerAdded.hpp
     ${SRCROOT}/handler/request/NewPlayerAdded.cpp
+    ${SRCROOT}/handler/request/GameStarted.hpp
+    ${SRCROOT}/handler/request/GameStarted.cpp
 
     ${SRCROOT}/handler/response/Register.hpp
     ${SRCROOT}/handler/response/Register.cpp
@@ -16,6 +18,8 @@ set(SRC
     ${SRCROOT}/handler/response/CreateRoom.cpp
     ${SRCROOT}/handler/response/ConnectToRoom.hpp
     ${SRCROOT}/handler/response/ConnectToRoom.cpp
+    ${SRCROOT}/handler/response/StartGame.hpp
+    ${SRCROOT}/handler/response/StartGame.cpp
 
     ${SRCROOT}/model/Registration.hpp
     ${SRCROOT}/model/Registration.cpp

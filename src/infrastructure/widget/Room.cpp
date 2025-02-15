@@ -17,8 +17,23 @@ m_table{pixmap_storage, HandOfCards::Type::Horizontal},
 m_has_north{},
 m_has_west{},
 m_has_east{},
-m_start_game_button{"Начать игру"}
+m_start_game_button{"Начать игру"},
+m_free_card_idx{protocol::entity::kMaxCardsPerPlayer + 1}
 {
+    m_player_hand.subscribe_on_card_selection(
+        [this](protocol::entity::Card card, HandOfCards::CardIdx idx)
+        {
+            m_model.nominate_card(card);
+            m_free_card_idx = idx;
+        });
+
+    m_model.subscribe_on_user_cards_setted(
+        [this](const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>& cards)
+        {
+            for (std::uint8_t i = 0; i < protocol::entity::kMaxCardsPerPlayer; i++)
+                m_player_hand.replace_card(i, cards[i]);
+        });
+
     setLayout(&m_layout);
 
     m_layout.setAlignment(Qt::AlignCenter);
@@ -52,6 +67,7 @@ m_start_game_button{"Начать игру"}
                     {
                         m_start_game_button.setHidden(true);
                         m_table.setHidden(false);
+                        m_model.start_game();
                     });
         });
 

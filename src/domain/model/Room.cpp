@@ -1,6 +1,8 @@
 #include <domain/model/Room.hpp>
 
+#include <RockPaperScissorsProtocol/entity/server/request/NominateCard.hpp>
 #include <RockPaperScissorsProtocol/entity/server/request/StartGame.hpp>
+#include "Room.hpp"
 
 namespace rps::domain::model
 {
@@ -10,15 +12,33 @@ Room::Room(protocol::entity::MessageSender&                        message_sende
            const std::shared_ptr<protocol::interface::Connection>& connection) :
 m_message_sender{message_sender},
 m_user{user},
-m_connection{connection}
+m_connection{connection},
+m_is_game_started{}
 {
 }
 
 void Room::start_game()
 {
     protocol::entity::server::request::StartGame request;
+    request.room_name = m_name;
+    request.user_uuid = m_user.uuid;
 
     m_message_sender.send(std::move(request), m_connection);
+}
+
+void Room::on_game_started()
+{
+    m_is_game_started = true;
+}
+
+void Room::set_name(std::string&& name)
+{
+    m_name = std::move(name);
+}
+
+const std::string& Room::get_name() const
+{
+    return m_name;
 }
 
 void Room::subscribe_on_room_creation(std::function<void()> callback)
@@ -46,6 +66,34 @@ void Room::add_new_player(std::string&& player_nickname)
     assert(m_on_new_player_added && "Subcriber must be setted!");
 
     m_on_new_player_added(std::move(player_nickname));
+}
+
+void Room::nominate_card(protocol::entity::Card card)
+{
+    protocol::entity::server::request::NominateCard request;
+    request.room_name = m_name;
+    request.user_uuid = m_user.uuid;
+    request.card      = card;
+
+    m_message_sender.send(std::move(request), m_connection);
+}
+
+
+void Room::subscribe_on_user_cards_setted(
+    std::function<void(const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>&)> subscriber)
+{
+    assert(!m_on_user_cards_setted && "Subscriber not must be setted!");
+
+    m_on_user_cards_setted = subscriber; 
+}
+
+void Room::set_user_cards(const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>& user_cards) 
+{
+    assert(m_on_user_cards_setted && "Subscriber not must be setted!");
+
+    m_user_cards = user_cards;
+
+    m_on_user_cards_setted(user_cards);
 }
 
 } // namespace rps::domain::model

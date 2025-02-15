@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include <domain/model/Room.hpp>
 #include <domain/model/Searching.hpp>
 
 #include <infrastructure/widget/NoSpaceLineEdit.hpp>
@@ -17,10 +18,11 @@ class Searching : public QWidget
     Q_OBJECT
 
 public:
-    Searching(domain::model::Searching& model);
+    Searching(domain::model::Searching& model, domain::model::Room& room);
 
 private:
-    domain::model::Searching m_model;
+    domain::model::Searching& m_model;
+    domain::model::Room&      m_room;
 
     QVBoxLayout m_layout;
 

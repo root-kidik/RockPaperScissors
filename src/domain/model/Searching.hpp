@@ -15,8 +15,8 @@ public:
               domain::entity::User&                                   user,
               const std::shared_ptr<protocol::interface::Connection>& connection);
 
-    void create_room(std::string&& room_name);
-    void connect_to_room(std::string&& room_name);
+    void create_room(std::string room_name);
+    void connect_to_room(std::string room_name);
 
 private:
     protocol::entity::MessageSender&                        m_message_sender;

@@ -15,7 +15,7 @@ m_connection{connection}
 {
 }
 
-void Searching::create_room(std::string&& room_name)
+void Searching::create_room(std::string room_name)
 {
     protocol::entity::server::request::CreateRoom request;
     request.room_name = room_name;
@@ -26,7 +26,7 @@ void Searching::create_room(std::string&& room_name)
     connect_to_room(std::move(room_name));
 }
 
-void Searching::connect_to_room(std::string&& room_name)
+void Searching::connect_to_room(std::string room_name)
 {
     protocol::entity::server::request::ConnectToRoom request;
     request.room_name = std::move(room_name);
