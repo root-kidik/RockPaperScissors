@@ -31,6 +31,8 @@ set(SRC
     ${SRCROOT}/model/Searching.cpp
     ${SRCROOT}/model/Room.hpp
     ${SRCROOT}/model/Room.cpp
+    ${SRCROOT}/model/HandOfCards.hpp
+    ${SRCROOT}/model/HandOfCards.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})

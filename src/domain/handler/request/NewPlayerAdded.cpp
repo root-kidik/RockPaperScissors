@@ -13,7 +13,7 @@ NewPlayerAdded::Response NewPlayerAdded::handle(Request&&                       
     Response response;
     response.is_ok = true;
 
-    m_room.add_new_player(std::move(request.user_nickname));
+    m_room.players.add_value(std::move(request.user_nickname));
 
     return response;
 }

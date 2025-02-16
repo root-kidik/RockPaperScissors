@@ -16,7 +16,7 @@ void CreateRoom::handle(Response&& response)
     if (!response.is_ok)
         return;
 
-    m_model.create_room();
+    m_model.is_room_created.set_value(true);
 }
 
 } // namespace rps::domain::handler::response

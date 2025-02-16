@@ -18,7 +18,7 @@ void ConnectToRoom::handle(Response&& response)
 
     for (auto&& nickname : response.existed_players)
         if (!nickname.empty())
-            m_model.add_new_player(std::move(nickname));
+            m_model.players.add_value(std::move(nickname));
 
     m_mode_manager.activate_mode(entity::Mode::Room);
 }

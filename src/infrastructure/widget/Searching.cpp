@@ -34,7 +34,7 @@ m_connect_to_room_button{"Присоединиться"}
             {
                 auto name = m_room_name_input.text().toStdString();
                 m_model.create_room(name);
-                m_room.set_name(std::move(name));
+                m_room.name.set_value(std::move(name));
             });
 
     connect(&m_connect_to_room_button,
@@ -43,7 +43,7 @@ m_connect_to_room_button{"Присоединиться"}
             {
                 auto name = m_room_name_input.text().toStdString();
                 m_model.connect_to_room(m_room_name_input.text().toStdString());
-                m_room.set_name(std::move(name));
+                m_room.name.set_value(std::move(name));
             });
 
     m_layout.addWidget(&m_room_name_input);
