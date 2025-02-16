@@ -16,7 +16,7 @@ class Manager : public domain::interface::ModeManager
 public:
     Manager()
     {
-        m_stacked_widget.showFullScreen();
+        m_stacked_widget.show();
     }
 
     void activate_mode(domain::entity::Mode mode) override
