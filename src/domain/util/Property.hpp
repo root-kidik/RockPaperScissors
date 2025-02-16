@@ -19,7 +19,9 @@ public:
     {
     }
 
-    Property(T value, ValidateFn validate_callback = nullptr) : m_validate_callback{std::move(validate_callback)}, m_value{std::move(value)}
+    Property(T value, ValidateFn validate_callback = nullptr) :
+    m_validate_callback{std::move(validate_callback)},
+    m_value{std::move(value)}
     {
 #ifndef NDEBUG
         m_is_value_setted = true;

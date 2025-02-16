@@ -5,6 +5,7 @@
 
 namespace
 {
+
 constexpr std::uint32_t kBaseWidthCard  = 72;
 constexpr std::uint32_t kBaseHeightCard = 128;
 
