@@ -13,6 +13,7 @@ GameStarted::Response GameStarted::handle(Request&& request, const std::shared_p
     response.is_ok = true;
 
     m_room.set_user_cards(request.cards);
+    m_room.on_game_started();
 
     return response;
 }

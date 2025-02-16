@@ -2,7 +2,6 @@
 
 #include <infrastructure/storage/Pixmap.hpp>
 #include <infrastructure/widget/HandOfCards.hpp>
-#include "HandOfCards.hpp"
 
 namespace
 {
@@ -58,7 +57,8 @@ void HandOfCards::add_card(protocol::entity::Card card)
 {
     assert(m_cards_count != m_cards.size() && "Too many cards added");
 
-    auto& card_widget = m_cards[m_cards_count];
+    auto& [button, type] = m_cards[m_cards_count];
+    type                 = card;
 
     const auto& original_pixmap = m_pixmap_storage.get(card);
 
@@ -67,19 +67,19 @@ void HandOfCards::add_card(protocol::entity::Card card)
         QTransform transform;
         transform.rotate(kVerticalLeftRotate);
 
-        card_widget.setIcon(original_pixmap.transformed(transform, Qt::SmoothTransformation));
+        button.setIcon(original_pixmap.transformed(transform, Qt::SmoothTransformation));
     }
     else if (m_type == Type::VerticalRight)
     {
         QTransform transform;
         transform.rotate(kVerticalRightRotate);
 
-        card_widget.setIcon(original_pixmap.transformed(transform, Qt::SmoothTransformation));
+        button.setIcon(original_pixmap.transformed(transform, Qt::SmoothTransformation));
     }
     else
-        card_widget.setIcon(original_pixmap);
+        button.setIcon(original_pixmap);
 
-    card_widget.setStyleSheet(kDefaultCardStyle);
+    button.setStyleSheet(kDefaultCardStyle);
 
     QSize size;
     if (m_type == Type::Horizontal)
@@ -87,10 +87,10 @@ void HandOfCards::add_card(protocol::entity::Card card)
     else
         size = {kBaseHeightCard, kBaseWidthCard};
 
-    card_widget.setIconSize(size);
-    card_widget.setMaximumSize(size + kMaxAdditionSize);
+    button.setIconSize(size);
+    button.setMaximumSize(size + kMaxAdditionSize);
 
-    layout()->addWidget(&card_widget);
+    layout()->addWidget(&button);
 
     auto card_idx = m_cards_count++;
 
@@ -99,22 +99,34 @@ void HandOfCards::add_card(protocol::entity::Card card)
 
     assert(m_on_card_selected && "Callback must be not nullptr");
 
-    connect(&card_widget,
+    connect(&button,
             &QPushButton::pressed,
-            [this, &card_widget, card_idx, card]()
+            [this, &button, card_idx]()
             {
-                for (auto& card : m_cards)
-                    card.setStyleSheet(kDefaultCardStyle);
+                for (auto& [btn, type] : m_cards)
+                    btn.setStyleSheet(kDefaultCardStyle);
 
-                card_widget.setStyleSheet(kPressedCardStyle);
+                button.setStyleSheet(kPressedCardStyle);
 
-                m_on_card_selected(card, card_idx);
+                m_on_card_selected(m_cards[card_idx].type, card_idx);
             });
 }
 
 void HandOfCards::replace_card(CardIdx idx, protocol::entity::Card card)
 {
-    m_cards[idx].setIcon(m_pixmap_storage.get(card));
+    auto& [button, type] = m_cards[idx]; 
+    button.setIcon(m_pixmap_storage.get(card));
+    type = card;
+}
+
+void HandOfCards::replace_by_value_to_backface(protocol::entity::Card card)
+{
+    auto it = std::find_if(m_cards.begin(), m_cards.end(), [card](const auto& val) { return val.type == card; });
+
+    assert(it != m_cards.end() && "Card must be exist");
+
+    it->button.setIcon(m_pixmap_storage.get(protocol::entity::Card::Backface));
+    it->type = card;
 }
 
 void HandOfCards::subscribe_on_card_selection(std::function<void(protocol::entity::Card, CardIdx)> callback)

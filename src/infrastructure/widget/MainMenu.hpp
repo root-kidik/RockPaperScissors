@@ -9,7 +9,7 @@ namespace rps::infrastructure::widget
 
 class Manager;
 
-class MainMenu : public QWidget
+class MainMenu final : public QWidget
 {
     Q_OBJECT
 

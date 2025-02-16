@@ -11,7 +11,7 @@
 namespace rps::infrastructure::widget
 {
 
-class Manager : public domain::interface::ModeManager
+class Manager final : public domain::interface::ModeManager
 {
 public:
     Manager()

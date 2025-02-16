@@ -11,7 +11,7 @@
 namespace rps::infrastructure::widget
 {
 
-class Registration : public QWidget
+class Registration final : public QWidget
 {
     Q_OBJECT
 

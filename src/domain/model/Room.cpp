@@ -2,7 +2,6 @@
 
 #include <RockPaperScissorsProtocol/entity/server/request/NominateCard.hpp>
 #include <RockPaperScissorsProtocol/entity/server/request/StartGame.hpp>
-#include "Room.hpp"
 
 namespace rps::domain::model
 {
@@ -70,6 +69,8 @@ void Room::add_new_player(std::string&& player_nickname)
 
 void Room::nominate_card(protocol::entity::Card card)
 {
+    assert(m_is_game_started && "Game must be started!");
+
     protocol::entity::server::request::NominateCard request;
     request.room_name = m_name;
     request.user_uuid = m_user.uuid;
@@ -78,22 +79,31 @@ void Room::nominate_card(protocol::entity::Card card)
     m_message_sender.send(std::move(request), m_connection);
 }
 
-
 void Room::subscribe_on_user_cards_setted(
     std::function<void(const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>&)> subscriber)
 {
-    assert(!m_on_user_cards_setted && "Subscriber not must be setted!");
-
-    m_on_user_cards_setted = subscriber; 
+    assert(!m_on_user_cards_setted && "Subcriber already setted!");
+    m_on_user_cards_setted = std::move(subscriber); 
 }
 
 void Room::set_user_cards(const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>& user_cards) 
 {
-    assert(m_on_user_cards_setted && "Subscriber not must be setted!");
-
+    assert(m_on_user_cards_setted && "Subscriber must be setted!");
     m_user_cards = user_cards;
 
     m_on_user_cards_setted(user_cards);
+}
+
+void Room::subscribe_on_force_nominating_card(std::function<void(protocol::entity::Card)> callback)
+{
+    assert(!m_on_card_force_nominated && "Subcriber already setted!");
+    m_on_card_force_nominated = std::move(callback);
+}
+
+void Room::force_nominate_card(protocol::entity::Card card)
+{
+    assert(m_on_card_force_nominated && "Subscriber must be setted!");
+    m_on_card_force_nominated(card);
 }
 
 } // namespace rps::domain::model

@@ -13,7 +13,7 @@
 namespace rps::infrastructure::widget
 {
 
-class Searching : public QWidget
+class Searching final : public QWidget
 {
     Q_OBJECT
 

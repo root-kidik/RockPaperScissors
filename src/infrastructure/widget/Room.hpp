@@ -14,7 +14,7 @@
 namespace rps::infrastructure::widget
 {
 
-class Room : public QWidget
+class Room final : public QWidget
 {
     Q_OBJECT
 

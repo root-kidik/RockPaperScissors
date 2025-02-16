@@ -34,6 +34,9 @@ m_free_card_idx{protocol::entity::kMaxCardsPerPlayer + 1}
                 m_player_hand.replace_card(i, cards[i]);
         });
 
+    m_model.subscribe_on_force_nominating_card(
+        [this](protocol::entity::Card card) { m_player_hand.replace_by_value_to_backface(card); });
+
     setLayout(&m_layout);
 
     m_layout.setAlignment(Qt::AlignCenter);

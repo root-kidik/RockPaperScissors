@@ -9,6 +9,8 @@ set(SRC
 
     ${SRCROOT}/handler/request/NewPlayerAdded.hpp
     ${SRCROOT}/handler/request/NewPlayerAdded.cpp
+    ${SRCROOT}/handler/request/CardForcedNominated.hpp
+    ${SRCROOT}/handler/request/CardForcedNominated.cpp
     ${SRCROOT}/handler/request/GameStarted.hpp
     ${SRCROOT}/handler/request/GameStarted.cpp
 
