@@ -21,7 +21,14 @@ RockPaperScissors::RockPaperScissors(int argc, char* argv[]) :
 m_app{argc, argv},
 m_registration_model{m_message_sender, m_user, m_connection},
 m_searcing_model{m_message_sender, m_user, m_connection},
-m_room_model{m_message_sender, m_user, m_connection}
+m_room_model{m_player_hand_of_cards_model,
+             m_north_hand_of_cards_model,
+             m_west_hand_of_cards_model,
+             m_east_hand_of_cards_model,
+             m_play_table_hand_of_cards_model,
+             m_message_sender,
+             m_user,
+             m_connection}
 {
     init_message_handlers();
     connect_to_server();

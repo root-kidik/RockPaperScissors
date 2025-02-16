@@ -36,11 +36,10 @@ constexpr QSize kMaxAdditionSize{20, 20};
 namespace rps::infrastructure::widget
 {
 
-HandOfCards::HandOfCards(const storage::Pixmap& pixmap_storage, domain::model::HandOfCards& model, Type type, bool is_player_deck) :
+HandOfCards::HandOfCards(const storage::Pixmap& pixmap_storage, domain::model::HandOfCards& model, Type type) :
 m_pixmap_storage{pixmap_storage},
 m_model{model},
-m_type{type},
-m_is_player_deck{is_player_deck}
+m_type{type}
 {
     m_model.cards.subscribe_on_set(
         [this, &model](const domain::model::HandOfCards::Card& card, std::size_t idx)
@@ -78,9 +77,6 @@ m_is_player_deck{is_player_deck}
             button.setMaximumSize(size + kMaxAdditionSize);
 
             layout()->addWidget(&button);
-
-            if (!m_is_player_deck)
-                return;
 
             connect(&button,
                     &QPushButton::pressed,

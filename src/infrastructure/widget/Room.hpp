@@ -30,8 +30,6 @@ public:
          domain::entity::User&       user);
 
 private:
-    void generate_full_backface_deck(domain::model::HandOfCards& hand_of_cards_model);
-
     domain::model::Room& m_room_model;
 
     const storage::Pixmap& m_pixmap_storage;
@@ -46,10 +44,6 @@ private:
     HandOfCards m_east_hand;
 
     HandOfCards m_table;
-
-    bool m_has_north;
-    bool m_has_west;
-    bool m_has_east;
 
     QPushButton m_start_game_button;
 };

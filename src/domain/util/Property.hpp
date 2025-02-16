@@ -113,6 +113,11 @@ public:
     using ValidateFn = std::function<bool(const T&)>;
     using CallbackFn = std::function<void(const T&, std::size_t)>;
 
+    static std::size_t size()
+    {
+        return Size;
+    }
+
     Property(ValidateFn validate_callback_on_set = nullptr, ValidateFn validate_callback_on_update = nullptr) :
     m_validate_callback_on_set{std::move(validate_callback_on_set)},
     m_validate_callback_on_update{std::move(validate_callback_on_update)}
