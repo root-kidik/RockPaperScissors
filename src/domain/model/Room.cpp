@@ -83,10 +83,10 @@ void Room::subscribe_on_user_cards_setted(
     std::function<void(const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>&)> subscriber)
 {
     assert(!m_on_user_cards_setted && "Subcriber already setted!");
-    m_on_user_cards_setted = std::move(subscriber); 
+    m_on_user_cards_setted = std::move(subscriber);
 }
 
-void Room::set_user_cards(const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>& user_cards) 
+void Room::set_user_cards(const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>& user_cards)
 {
     assert(m_on_user_cards_setted && "Subscriber must be setted!");
     m_user_cards = user_cards;

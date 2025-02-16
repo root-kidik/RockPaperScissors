@@ -7,7 +7,7 @@
 namespace rps::domain::handler::request
 {
 
-class CardForcedNominated : public protocol::interface::client::handler::request::CardForcedNominated
+class CardForcedNominated final : public protocol::interface::client::handler::request::CardForcedNominated
 {
 public:
     CardForcedNominated(model::Room& room);

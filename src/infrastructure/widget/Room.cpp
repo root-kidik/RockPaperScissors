@@ -35,7 +35,11 @@ m_free_card_idx{protocol::entity::kMaxCardsPerPlayer + 1}
         });
 
     m_model.subscribe_on_force_nominating_card(
-        [this](protocol::entity::Card card) { m_player_hand.replace_by_value_to_backface(card); });
+        [this](protocol::entity::Card card)
+        {
+            m_player_hand.lock_card_selection(true);
+            m_player_hand.select_card(card);
+        });
 
     setLayout(&m_layout);
 
@@ -71,6 +75,7 @@ m_free_card_idx{protocol::entity::kMaxCardsPerPlayer + 1}
                         m_start_game_button.setHidden(true);
                         m_table.setHidden(false);
                         m_model.start_game();
+                        m_player_hand.lock_card_selection(false);
                     });
         });
 

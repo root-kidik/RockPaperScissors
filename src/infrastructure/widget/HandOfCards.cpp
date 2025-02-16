@@ -39,7 +39,8 @@ HandOfCards::HandOfCards(const storage::Pixmap& pixmap_storage, Type type, bool 
 m_pixmap_storage{pixmap_storage},
 m_cards_count{},
 m_type{type},
-m_is_player_deck{is_player_deck}
+m_is_player_deck{is_player_deck},
+m_is_card_selection_locked{true}
 {
     QLayout* layout;
 
@@ -51,6 +52,11 @@ m_is_player_deck{is_player_deck}
     setLayout(layout);
 
     layout->setAlignment(Qt::AlignCenter);
+}
+
+void HandOfCards::lock_card_selection(bool value)
+{
+    m_is_card_selection_locked = value;
 }
 
 void HandOfCards::add_card(protocol::entity::Card card)
@@ -103,6 +109,9 @@ void HandOfCards::add_card(protocol::entity::Card card)
             &QPushButton::pressed,
             [this, &button, card_idx]()
             {
+                if (m_is_card_selection_locked)
+                    return;
+
                 for (auto& [btn, type] : m_cards)
                     btn.setStyleSheet(kDefaultCardStyle);
 
@@ -114,7 +123,7 @@ void HandOfCards::add_card(protocol::entity::Card card)
 
 void HandOfCards::replace_card(CardIdx idx, protocol::entity::Card card)
 {
-    auto& [button, type] = m_cards[idx]; 
+    auto& [button, type] = m_cards[idx];
     button.setIcon(m_pixmap_storage.get(card));
     type = card;
 }
@@ -134,6 +143,18 @@ void HandOfCards::subscribe_on_card_selection(std::function<void(protocol::entit
     assert(!m_on_card_selected && "Subscriber must be nullptr");
 
     m_on_card_selected = std::move(callback);
+}
+
+void HandOfCards::select_card(protocol::entity::Card card)
+{
+    auto it = std::find_if(m_cards.begin(), m_cards.end(), [card](const auto& val) { return val.type == card; });
+
+    assert(it != m_cards.end() && "Card must be exist");
+
+    for (auto& [btn, type] : m_cards)
+        btn.setStyleSheet(kDefaultCardStyle);
+
+    it->button.setStyleSheet(kPressedCardStyle);
 }
 
 } // namespace rps::infrastructure::widget

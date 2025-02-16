@@ -7,7 +7,7 @@
 namespace rps::domain::handler::request
 {
 
-class GameStarted : public protocol::interface::client::handler::request::GameStarted
+class GameStarted final : public protocol::interface::client::handler::request::GameStarted
 {
 public:
     GameStarted(model::Room& room);

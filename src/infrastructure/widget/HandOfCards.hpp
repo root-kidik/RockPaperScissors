@@ -22,7 +22,7 @@ class HandOfCards final : public QWidget
     Q_OBJECT
 
 public:
-    enum class Type
+    enum class Type : std::uint8_t
     {
         Horizontal,
         VerticalLeft,
@@ -33,18 +33,22 @@ public:
 
     HandOfCards(const storage::Pixmap& pixmap_storage, Type type, bool is_player_deck = false);
 
+    void lock_card_selection(bool value);
+
     void add_card(protocol::entity::Card card);
     void replace_card(CardIdx idx, protocol::entity::Card card);
     void replace_by_value_to_backface(protocol::entity::Card card);
 
     void subscribe_on_card_selection(std::function<void(protocol::entity::Card, CardIdx)> callback);
+    
+    void select_card(protocol::entity::Card card);
 
 private:
     const storage::Pixmap& m_pixmap_storage;
 
     struct Card
     {
-        QPushButton button;
+        QPushButton            button;
         protocol::entity::Card type;
     };
 
@@ -56,6 +60,8 @@ private:
     bool m_is_player_deck;
 
     std::function<void(protocol::entity::Card, CardIdx)> m_on_card_selected;
+
+    bool m_is_card_selection_locked;
 };
 
 } // namespace rps::infrastructure::widget

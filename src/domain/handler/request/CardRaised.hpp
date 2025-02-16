@@ -2,15 +2,15 @@
 
 #include <domain/model/Room.hpp>
 
-#include <RockPaperScissorsProtocol/interface/client/handler/request/NewPlayerAdded.hpp>
+#include <RockPaperScissorsProtocol/interface/client/handler/request/CardRaised.hpp>
 
 namespace rps::domain::handler::request
 {
 
-class NewPlayerAdded final : public protocol::interface::client::handler::request::NewPlayerAdded
+class CardRaised final : public protocol::interface::client::handler::request::CardRaised
 {
 public:
-    NewPlayerAdded(model::Room& room);
+    CardRaised(model::Room& room);
 
     Response handle(Request&& request, const std::shared_ptr<protocol::interface::Connection>& connection) override;
 

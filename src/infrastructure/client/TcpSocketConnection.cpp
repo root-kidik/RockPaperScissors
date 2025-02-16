@@ -1,10 +1,8 @@
 #include <QTcpSocket>
 
-#ifndef NDEGUB
+#ifndef NDEBUG
 #include <iostream>
 #endif
-
-#include <thread>
 
 #include <infrastructure/client/TcpSocketConnection.hpp>
 
@@ -28,7 +26,7 @@ void TcpSocketConnection::send(std::string&& data)
     data += '\n';
 
 #ifndef NDEBUG
-        std::cout << "send: " << data;
+    std::cout << "send: " << data;
 #endif
 
     m_tcp_socket->write(data.c_str());

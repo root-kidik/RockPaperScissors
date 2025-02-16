@@ -22,7 +22,7 @@ public:
     void start_game();
     void on_game_started();
 
-    void               set_name(std::string&& name);
+    void                             set_name(std::string&& name);
     [[nodiscard]] const std::string& get_name() const;
 
     void subscribe_on_room_creation(std::function<void()> callback);
@@ -56,7 +56,7 @@ private:
 
     std::function<void(const std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer>&)> m_on_user_cards_setted;
     std::array<protocol::entity::Card, protocol::entity::kMaxCardsPerPlayer> m_user_cards;
-    
+
     std::function<void(protocol::entity::Card)> m_on_card_force_nominated;
 };
 

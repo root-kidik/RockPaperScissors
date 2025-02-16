@@ -13,6 +13,8 @@ set(SRC
     ${SRCROOT}/handler/request/CardForcedNominated.cpp
     ${SRCROOT}/handler/request/GameStarted.hpp
     ${SRCROOT}/handler/request/GameStarted.cpp
+    ${SRCROOT}/handler/request/CardRaised.hpp
+    ${SRCROOT}/handler/request/CardRaised.cpp
 
     ${SRCROOT}/handler/response/Register.hpp
     ${SRCROOT}/handler/response/Register.cpp
