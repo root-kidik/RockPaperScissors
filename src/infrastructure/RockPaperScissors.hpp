@@ -44,13 +44,14 @@ private:
 
     domain::model::Registration m_registration_model;
     domain::model::Searching    m_searcing_model;
-    domain::model::Room         m_room_model;
 
     domain::model::HandOfCards m_player_hand_of_cards_model;
     domain::model::HandOfCards m_north_hand_of_cards_model;
     domain::model::HandOfCards m_west_hand_of_cards_model;
     domain::model::HandOfCards m_east_hand_of_cards_model;
     domain::model::HandOfCards m_play_table_hand_of_cards_model;
+
+    domain::model::Room m_room_model;
 
     widget::Manager m_widget_manager;
 };

@@ -68,9 +68,15 @@ m_has_east{}
         });
 
     is_game_started.subscribe(
-        [this](const bool& is_game_started) { m_player_hand_of_cards_model.is_locked.set_value(is_game_started); });
+        [this](const bool& is_game_started) { m_player_hand_of_cards_model.is_locked.set_value(!is_game_started); });
 
-    generate_full_backface_deck(m_player_hand_of_cards_model);
+    is_connected_to_room.subscribe(
+        [this](const bool& is_connected_to_room)
+        {
+            if (!is_connected_to_room) return;
+            
+            generate_full_backface_deck(m_player_hand_of_cards_model);
+        });
 }
 
 void Room::start_game()

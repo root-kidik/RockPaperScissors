@@ -30,6 +30,7 @@ public:
     util::Property<std::string>              name;
 
     util::Property<bool> is_room_created;
+    util::Property<bool> is_connected_to_room;
     util::Property<bool> is_game_started;
 
     void start_game();

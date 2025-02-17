@@ -16,10 +16,10 @@ GameStarted::Response GameStarted::handle(Request&& request, const std::shared_p
     Response response;
     response.is_ok = true;
 
+    m_room_model.is_game_started.set_value(true);
+
     for (std::size_t i = 0; i < request.cards.size(); i++)
         m_player_hand_of_cards_model.cards.update_value({request.cards[i], false}, i);
-
-    m_room_model.is_game_started.set_value(true);
 
     return response;
 }

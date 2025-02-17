@@ -20,6 +20,7 @@ void ConnectToRoom::handle(Response&& response)
         if (!nickname.empty())
             m_model.players.add_value(std::move(nickname));
 
+    m_model.is_connected_to_room.set_value(true);
     m_mode_manager.activate_mode(entity::Mode::Room);
 }
 
