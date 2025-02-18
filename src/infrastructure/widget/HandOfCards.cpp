@@ -87,6 +87,9 @@ m_type{type}
     m_model.cards.subscribe_on_update(
         [this](const domain::model::HandOfCards::Card& card, std::size_t idx)
         {
+            assert(idx < m_buttons.size() && "not valid idx");
+            assert(idx >= 0 && "idx must be ge zero");
+
             auto& button = m_buttons[idx];
 
             for (auto& btn : m_buttons)
