@@ -1,6 +1,8 @@
-#include <domain/handler/response/CreateRoom.hpp>
 #include <domain/interface/ModeManager.hpp>
+
 #include <domain/model/Room.hpp>
+
+#include <domain/handler/response/CreateRoom.hpp>
 
 namespace rps::domain::handler::response
 {

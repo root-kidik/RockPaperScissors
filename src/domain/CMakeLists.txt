@@ -25,14 +25,17 @@ set(SRC
     ${SRCROOT}/handler/response/StartGame.hpp
     ${SRCROOT}/handler/response/StartGame.cpp
 
-    ${SRCROOT}/model/Registration.hpp
-    ${SRCROOT}/model/Registration.cpp
-    ${SRCROOT}/model/Searching.hpp
-    ${SRCROOT}/model/Searching.cpp
     ${SRCROOT}/model/Room.hpp
     ${SRCROOT}/model/Room.cpp
     ${SRCROOT}/model/HandOfCards.hpp
     ${SRCROOT}/model/HandOfCards.cpp
+
+    ${SRCROOT}/usecase/Registration.hpp
+    ${SRCROOT}/usecase/Registration.cpp
+    ${SRCROOT}/usecase/Searching.hpp
+    ${SRCROOT}/usecase/Searching.cpp
+    ${SRCROOT}/usecase/StartGame.hpp
+    ${SRCROOT}/usecase/StartGame.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})

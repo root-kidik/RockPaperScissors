@@ -2,9 +2,9 @@
 
 #include <array>
 
-#include <domain/util/Property.hpp>
-
 #include <RockPaperScissorsProtocol/entity/Card.hpp>
+
+#include <domain/util/Property.hpp>
 
 namespace rps::domain::model
 {

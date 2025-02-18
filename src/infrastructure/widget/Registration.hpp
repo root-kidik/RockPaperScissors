@@ -4,9 +4,12 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include <domain/model/Registration.hpp>
-
 #include <infrastructure/widget/NoSpaceLineEdit.hpp>
+
+namespace rps::domain::usecase
+{
+class Registration;
+}
 
 namespace rps::infrastructure::widget
 {
@@ -16,10 +19,10 @@ class Registration final : public QWidget
     Q_OBJECT
 
 public:
-    Registration(domain::model::Registration& model);
+    Registration(domain::usecase::Registration& usecase);
 
 private:
-    domain::model::Registration& m_model;
+    domain::usecase::Registration& m_usecase;
 
     QVBoxLayout m_layout;
 

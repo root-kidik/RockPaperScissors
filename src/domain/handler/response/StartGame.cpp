@@ -1,5 +1,6 @@
-#include <domain/handler/response/StartGame.hpp>
 #include <domain/model/Room.hpp>
+
+#include <domain/handler/response/StartGame.hpp>
 
 namespace rps::domain::handler::response
 {

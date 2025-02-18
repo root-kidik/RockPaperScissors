@@ -7,10 +7,28 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include <domain/model/HandOfCards.hpp>
-#include <domain/model/Room.hpp>
-
 #include <infrastructure/widget/HandOfCards.hpp>
+
+namespace rps::domain
+{
+
+namespace entity
+{
+struct User;
+} // namespace entity
+
+namespace model
+{
+struct Room;
+struct HandOfCards;
+} // namespace model
+
+namespace usecase
+{
+class StartGame;
+} // namespace usecase
+
+} // namespace rps::domain
 
 namespace rps::infrastructure::widget
 {
@@ -20,7 +38,10 @@ class Room final : public QWidget
     Q_OBJECT
 
 public:
-    Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage, domain::entity::User& user);
+    Room(domain::model::Room&        model,
+         const storage::Pixmap&      pixmap_storage,
+         domain::entity::User&       user,
+         domain::usecase::StartGame& start_game_usecase);
 
 private:
     domain::model::Room& m_room_model;
@@ -39,6 +60,8 @@ private:
     HandOfCards m_table;
 
     QPushButton m_start_game_button;
+
+    domain::usecase::StartGame& m_start_game_usecase;
 };
 
 } // namespace rps::infrastructure::widget

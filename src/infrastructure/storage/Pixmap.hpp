@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QPixmap>
-
 #include <unordered_map>
+
+#include <QPixmap>
 
 #include <RockPaperScissorsProtocol/entity/Card.hpp>
 

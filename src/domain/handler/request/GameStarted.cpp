@@ -1,6 +1,7 @@
-#include <domain/handler/request/GameStarted.hpp>
 #include <domain/model/HandOfCards.hpp>
 #include <domain/model/Room.hpp>
+
+#include <domain/handler/request/GameStarted.hpp>
 
 namespace rps::domain::handler::request
 {

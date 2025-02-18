@@ -1,8 +1,9 @@
 #include <QApplication>
 
-#include <infrastructure/util/Constant.hpp>
 #include <infrastructure/widget/MainMenu.hpp>
 #include <infrastructure/widget/Manager.hpp>
+
+#include <infrastructure/util/Constant.hpp>
 
 namespace rps::infrastructure::widget
 {

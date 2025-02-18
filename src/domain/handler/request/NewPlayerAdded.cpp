@@ -1,3 +1,5 @@
+#include <domain/model/Room.hpp>
+
 #include <domain/handler/request/NewPlayerAdded.hpp>
 
 namespace rps::domain::handler::request

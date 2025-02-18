@@ -1,10 +1,15 @@
-#include <infrastructure/util/Constant.hpp>
 #include <infrastructure/widget/Registration.hpp>
+
+#include <infrastructure/util/Constant.hpp>
+
+#include <domain/usecase/Registration.hpp>
 
 namespace rps::infrastructure::widget
 {
 
-Registration::Registration(domain::model::Registration& model) : m_model{model}, m_register_button{"Зарегистрироваться"}
+Registration::Registration(domain::usecase::Registration& usecase) :
+m_usecase{usecase},
+m_register_button{"Зарегистрироваться"}
 {
     setLayout(&m_layout);
 
@@ -23,7 +28,7 @@ Registration::Registration(domain::model::Registration& model) : m_model{model},
 
     connect(&m_register_button,
             &QPushButton::pressed,
-            [this]() { m_model.registrate(m_name_input.text().toStdString()); });
+            [this]() { m_usecase.registrate(m_name_input.text().toStdString()); });
 
     m_layout.addWidget(&m_name_input);
     m_layout.addWidget(&m_register_button);

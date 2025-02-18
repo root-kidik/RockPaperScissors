@@ -1,8 +1,15 @@
-#include <domain/model/Registration.hpp>
-
+#include <RockPaperScissorsProtocol/entity/MessageSender.hpp>
 #include <RockPaperScissorsProtocol/entity/server/request/Register.hpp>
 
-namespace rps::domain::model
+#include <RockPaperScissorsProtocol/interface/Connection.hpp>
+
+#include <domain/entity/User.hpp>
+
+#include <domain/model/Room.hpp>
+
+#include <domain/usecase/Registration.hpp>
+
+namespace rps::domain::usecase
 {
 
 Registration::Registration(protocol::entity::MessageSender&                        message_sender,
@@ -24,4 +31,4 @@ void Registration::registrate(std::string&& nickname)
     m_message_sender.send(std::move(request), m_connection);
 }
 
-} // namespace rps::domain::model
+} // namespace rps::domain::usecase

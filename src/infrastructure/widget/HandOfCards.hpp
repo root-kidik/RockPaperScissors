@@ -1,11 +1,11 @@
 #pragma once
 
+#include <cstdint>
+
 #include <QLayout>
 #include <QPushButton>
 #include <QResizeEvent>
 #include <QWidget>
-
-#include <cstdint>
 
 #include <RockPaperScissorsProtocol/entity/Card.hpp>
 

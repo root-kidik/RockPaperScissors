@@ -1,5 +1,6 @@
-#include <domain/handler/request/CardRaised.hpp>
 #include <domain/model/Room.hpp>
+
+#include <domain/handler/request/CardRaised.hpp>
 
 namespace rps::domain::handler::request
 {

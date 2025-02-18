@@ -6,7 +6,7 @@ namespace rps::domain
 {
 namespace model
 {
-class Room;
+struct Room;
 }
 
 namespace interface

@@ -4,7 +4,7 @@
 
 namespace rps::domain::model
 {
-class Room;
+struct Room;
 } // namespace rps::domain::model
 
 namespace rps::domain::handler::request

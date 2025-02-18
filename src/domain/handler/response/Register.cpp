@@ -1,6 +1,8 @@
 #include <domain/entity/User.hpp>
-#include <domain/handler/response/Register.hpp>
+
 #include <domain/interface/ModeManager.hpp>
+
+#include <domain/handler/response/Register.hpp>
 
 namespace rps::domain::handler::response
 {

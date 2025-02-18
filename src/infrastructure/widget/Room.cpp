@@ -1,11 +1,21 @@
-#include <infrastructure/storage/Pixmap.hpp>
-#include <infrastructure/util/Constant.hpp>
 #include <infrastructure/widget/Room.hpp>
+
+#include <infrastructure/storage/Pixmap.hpp>
+
+#include <infrastructure/util/Constant.hpp>
+
+#include <domain/model/HandOfCards.hpp>
+#include <domain/model/Room.hpp>
+
+#include <domain/usecase/StartGame.hpp>
 
 namespace rps::infrastructure::widget
 {
 
-Room::Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage, domain::entity::User& user) :
+Room::Room(domain::model::Room&        model,
+           const storage::Pixmap&      pixmap_storage,
+           domain::entity::User&       user,
+           domain::usecase::StartGame& start_game_usecase) :
 m_room_model{model},
 m_pixmap_storage{pixmap_storage},
 m_user{user},
@@ -14,7 +24,8 @@ m_north_hand{pixmap_storage, model.north_hand_of_cards_model, HandOfCards::Type:
 m_west_hand{pixmap_storage, model.west_hand_of_cards_model, HandOfCards::Type::VerticalLeft},
 m_east_hand{pixmap_storage, model.east_hand_of_cards_model, HandOfCards::Type::VerticalRight},
 m_table{pixmap_storage, model.play_table_hand_of_cards_model, HandOfCards::Type::Horizontal},
-m_start_game_button{"Начать игру"}
+m_start_game_button{"Начать игру"},
+m_start_game_usecase{start_game_usecase}
 {
     setLayout(&m_layout);
 
@@ -46,7 +57,7 @@ m_start_game_button{"Начать игру"}
             m_start_game_button.setHidden(false);
             m_start_game_button.setStyleSheet(util::kDefaultGreenButtonStyle);
 
-            connect(&m_start_game_button, &QPushButton::pressed, [this]() { m_room_model.start_game(); });
+            connect(&m_start_game_button, &QPushButton::pressed, [this]() { m_start_game_usecase.start_game(); });
         });
 
     m_room_model.is_game_started.subscribe(

@@ -1,11 +1,16 @@
-#include <infrastructure/util/Constant.hpp>
 #include <infrastructure/widget/Searching.hpp>
+
+#include <infrastructure/util/Constant.hpp>
+
+#include <domain/model/Room.hpp>
+
+#include <domain/usecase/Searching.hpp>
 
 namespace rps::infrastructure::widget
 {
 
-Searching::Searching(domain::model::Searching& model, domain::model::Room& room) :
-m_model{model},
+Searching::Searching(domain::usecase::Searching& usecase, domain::model::Room& room) :
+m_usecase{usecase},
 m_room{room},
 m_create_room_button{"Создать"},
 m_connect_to_room_button{"Присоединиться"}
@@ -33,7 +38,7 @@ m_connect_to_room_button{"Присоединиться"}
             [this]()
             {
                 auto name = m_room_name_input.text().toStdString();
-                m_model.create_room(name);
+                m_usecase.create_room(name);
                 m_room.name.set_value(std::move(name));
             });
 
@@ -42,7 +47,7 @@ m_connect_to_room_button{"Присоединиться"}
             [this]()
             {
                 auto name = m_room_name_input.text().toStdString();
-                m_model.connect_to_room(m_room_name_input.text().toStdString());
+                m_usecase.connect_to_room(m_room_name_input.text().toStdString());
                 m_room.name.set_value(std::move(name));
             });
 

@@ -1,14 +1,25 @@
 #pragma once
 
-#include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include <domain/model/Room.hpp>
-#include <domain/model/Searching.hpp>
-
 #include <infrastructure/widget/NoSpaceLineEdit.hpp>
+
+namespace rps::domain
+{
+
+namespace model
+{
+struct Room;
+} // namespace model
+
+namespace usecase
+{
+class Searching;
+} // namespace usecase
+
+} // namespace rps::domain
 
 namespace rps::infrastructure::widget
 {
@@ -18,11 +29,11 @@ class Searching final : public QWidget
     Q_OBJECT
 
 public:
-    Searching(domain::model::Searching& model, domain::model::Room& room);
+    Searching(domain::usecase::Searching& usecase, domain::model::Room& room);
 
 private:
-    domain::model::Searching& m_model;
-    domain::model::Room&      m_room;
+    domain::usecase::Searching& m_usecase;
+    domain::model::Room&        m_room;
 
     QVBoxLayout m_layout;
 

@@ -1,5 +1,6 @@
-#include <domain/handler/request/CardForcedNominated.hpp>
 #include <domain/model/Room.hpp>
+
+#include <domain/handler/request/CardForcedNominated.hpp>
 
 namespace rps::domain::handler::request
 {
@@ -14,7 +15,14 @@ CardForcedNominated::Response CardForcedNominated::handle(Request&& request,
     Response response;
     response.is_ok = true;
 
-    m_room.force_nominate_card(request.card);
+    auto& player_hand = m_room.player_hand_of_cards_model;
+
+    for (std::size_t i = 0; i < player_hand.cards.size(); i++)
+        if (const auto& value = player_hand.cards.get_value(i); value.type == request.card)
+        {
+            player_hand.cards.set_value({protocol::entity::Card::Backface, false}, i);
+            break;
+        }
 
     return response;
 }

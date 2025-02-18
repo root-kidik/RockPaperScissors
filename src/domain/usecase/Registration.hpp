@@ -1,11 +1,34 @@
 #pragma once
 
-#include <domain/entity/User.hpp>
+#include <memory>
+#include <string>
 
-#include <RockPaperScissorsProtocol/entity/MessageSender.hpp>
-#include <RockPaperScissorsProtocol/interface/Connection.hpp>
+namespace rps
+{
 
-namespace rps::domain::model
+namespace protocol
+{
+
+namespace entity
+{
+class MessageSender;
+} // namespace entity
+
+namespace interface
+{
+class Connection;
+} // namespace interface
+
+} // namespace protocol
+
+namespace domain::entity
+{
+struct User;
+} // namespace domain::entity
+
+} // namespace rps
+
+namespace rps::domain::usecase
 {
 
 class Registration
@@ -23,4 +46,4 @@ private:
     const std::shared_ptr<protocol::interface::Connection>& m_connection;
 };
 
-} // namespace rps::domain::model
+} // namespace rps::domain::usecase

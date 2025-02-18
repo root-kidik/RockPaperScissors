@@ -1,7 +1,8 @@
-#include <domain/model/HandOfCards.hpp>
+#include <infrastructure/widget/HandOfCards.hpp>
 
 #include <infrastructure/storage/Pixmap.hpp>
-#include <infrastructure/widget/HandOfCards.hpp>
+
+#include <domain/model/HandOfCards.hpp>
 
 namespace
 {

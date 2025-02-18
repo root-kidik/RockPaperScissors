@@ -1,9 +1,16 @@
-#include <domain/model/Searching.hpp>
-
+#include <RockPaperScissorsProtocol/entity/MessageSender.hpp>
 #include <RockPaperScissorsProtocol/entity/server/request/ConnectToRoom.hpp>
 #include <RockPaperScissorsProtocol/entity/server/request/CreateRoom.hpp>
 
-namespace rps::domain::model
+#include <RockPaperScissorsProtocol/interface/Connection.hpp>
+
+#include <domain/entity/User.hpp>
+
+#include <domain/model/Room.hpp>
+
+#include <domain/usecase/Searching.hpp>
+
+namespace rps::domain::usecase
 {
 
 Searching::Searching(protocol::entity::MessageSender&                        message_sender,
@@ -35,4 +42,4 @@ void Searching::connect_to_room(std::string room_name)
     m_message_sender.send(std::move(request), m_connection);
 }
 
-} // namespace rps::domain::model
+} // namespace rps::domain::usecase

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <QStackedWidget>
-
 #include <cassert>
 #include <memory>
 #include <unordered_map>
+
+#include <QStackedWidget>
 
 #include <domain/interface/ModeManager.hpp>
 

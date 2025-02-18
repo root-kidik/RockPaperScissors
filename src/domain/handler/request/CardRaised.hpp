@@ -1,8 +1,11 @@
 #pragma once
 
-#include <domain/model/Room.hpp>
-
 #include <RockPaperScissorsProtocol/interface/client/handler/request/CardRaised.hpp>
+
+namespace rps::domain::model
+{
+struct Room;
+} // namespace rps::domain::model
 
 namespace rps::domain::handler::request
 {

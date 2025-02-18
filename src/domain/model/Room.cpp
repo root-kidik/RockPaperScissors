@@ -1,7 +1,10 @@
-#include <domain/model/Room.hpp>
-
+#include <RockPaperScissorsProtocol/entity/MessageSender.hpp>
 #include <RockPaperScissorsProtocol/entity/server/request/NominateCard.hpp>
 #include <RockPaperScissorsProtocol/entity/server/request/StartGame.hpp>
+
+#include <domain/entity/User.hpp>
+
+#include <domain/model/Room.hpp>
 
 namespace rps::domain::model
 {
@@ -67,27 +70,6 @@ m_has_east{}
 
             generate_full_backface_deck(player_hand_of_cards_model);
         });
-}
-
-void Room::start_game()
-{
-    assert(!is_game_started.get_value() && "game already started");
-
-    protocol::entity::server::request::StartGame request;
-    request.room_name = name.get_value();
-    request.user_uuid = m_user.uuid;
-
-    m_message_sender.send(std::move(request), m_connection);
-}
-
-void Room::force_nominate_card(protocol::entity::Card card)
-{
-    for (std::size_t i = 0; i < player_hand_of_cards_model.cards.size(); i++)
-        if (const auto& value = player_hand_of_cards_model.cards.get_value(i); value.type == card)
-        {
-            player_hand_of_cards_model.cards.set_value({protocol::entity::Card::Backface, false}, i);
-            break;
-        }
 }
 
 void Room::generate_full_backface_deck(domain::model::HandOfCards& hand_of_cards_model)

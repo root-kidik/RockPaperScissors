@@ -1,6 +1,8 @@
-#include <domain/handler/response/ConnectToRoom.hpp>
 #include <domain/interface/ModeManager.hpp>
+
 #include <domain/model/Room.hpp>
+
+#include <domain/handler/response/ConnectToRoom.hpp>
 
 namespace rps::domain::handler::response
 {
