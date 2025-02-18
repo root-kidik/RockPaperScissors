@@ -9,9 +9,8 @@
 namespace rps::domain::model
 {
 
-class HandOfCards
+struct HandOfCards
 {
-public:
     struct Card
     {
         protocol::entity::Card type{protocol::entity::Card::Backface};

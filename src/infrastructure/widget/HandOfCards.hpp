@@ -13,7 +13,7 @@ namespace rps
 {
 namespace domain::model
 {
-class HandOfCards;
+struct HandOfCards;
 }
 
 namespace infrastructure::storage

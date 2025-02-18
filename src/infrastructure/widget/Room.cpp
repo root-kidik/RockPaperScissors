@@ -5,22 +5,15 @@
 namespace rps::infrastructure::widget
 {
 
-Room::Room(domain::model::Room&        model,
-           domain::model::HandOfCards& player_hand_of_cards_model,
-           domain::model::HandOfCards& north_hand_of_cards_model,
-           domain::model::HandOfCards& west_hand_of_cards_model,
-           domain::model::HandOfCards& east_hand_of_cards_model,
-           domain::model::HandOfCards& play_table_hand_of_cards_model,
-           const storage::Pixmap&      pixmap_storage,
-           domain::entity::User&       user) :
+Room::Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage, domain::entity::User& user) :
 m_room_model{model},
 m_pixmap_storage{pixmap_storage},
 m_user{user},
-m_player_hand{pixmap_storage, player_hand_of_cards_model, HandOfCards::Type::Horizontal},
-m_north_hand{pixmap_storage, north_hand_of_cards_model, HandOfCards::Type::Horizontal},
-m_west_hand{pixmap_storage, west_hand_of_cards_model, HandOfCards::Type::VerticalLeft},
-m_east_hand{pixmap_storage, east_hand_of_cards_model, HandOfCards::Type::VerticalRight},
-m_table{pixmap_storage, play_table_hand_of_cards_model, HandOfCards::Type::Horizontal},
+m_player_hand{pixmap_storage, model.player_hand_of_cards_model, HandOfCards::Type::Horizontal},
+m_north_hand{pixmap_storage, model.north_hand_of_cards_model, HandOfCards::Type::Horizontal},
+m_west_hand{pixmap_storage, model.west_hand_of_cards_model, HandOfCards::Type::VerticalLeft},
+m_east_hand{pixmap_storage, model.east_hand_of_cards_model, HandOfCards::Type::VerticalRight},
+m_table{pixmap_storage, model.play_table_hand_of_cards_model, HandOfCards::Type::Horizontal},
 m_start_game_button{"Начать игру"}
 {
     setLayout(&m_layout);

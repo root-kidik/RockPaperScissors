@@ -20,14 +20,7 @@ class Room final : public QWidget
     Q_OBJECT
 
 public:
-    Room(domain::model::Room&        model,
-         domain::model::HandOfCards& player_hand_of_cards_model,
-         domain::model::HandOfCards& north_hand_of_cards_model,
-         domain::model::HandOfCards& west_hand_of_cards_model,
-         domain::model::HandOfCards& east_hand_of_cards_model,
-         domain::model::HandOfCards& play_table_hand_of_cards_model,
-         const storage::Pixmap&      pixmap_storage,
-         domain::entity::User&       user);
+    Room(domain::model::Room& model, const storage::Pixmap& pixmap_storage, domain::entity::User& user);
 
 private:
     domain::model::Room& m_room_model;

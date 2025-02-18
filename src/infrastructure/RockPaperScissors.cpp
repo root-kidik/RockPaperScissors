@@ -21,14 +21,7 @@ RockPaperScissors::RockPaperScissors(int argc, char* argv[]) :
 m_app{argc, argv},
 m_registration_model{m_message_sender, m_user, m_connection},
 m_searcing_model{m_message_sender, m_user, m_connection},
-m_room_model{m_player_hand_of_cards_model,
-             m_north_hand_of_cards_model,
-             m_west_hand_of_cards_model,
-             m_east_hand_of_cards_model,
-             m_play_table_hand_of_cards_model,
-             m_message_sender,
-             m_user,
-             m_connection}
+m_room_model{m_message_sender, m_user, m_connection}
 {
     init_message_handlers();
     connect_to_server();
@@ -48,8 +41,7 @@ void RockPaperScissors::init_message_handlers()
     m_message_executor.register_response_handler<domain::handler::response::StartGame>(m_room_model);
 
     m_message_executor.register_request_handler<domain::handler::request::NewPlayerAdded>(m_room_model);
-    m_message_executor.register_request_handler<domain::handler::request::GameStarted>(m_room_model,
-                                                                                       m_player_hand_of_cards_model);
+    m_message_executor.register_request_handler<domain::handler::request::GameStarted>(m_room_model);
     m_message_executor.register_request_handler<domain::handler::request::CardForcedNominated>(m_room_model);
     m_message_executor.register_request_handler<domain::handler::request::CardRaised>(m_room_model);
 }
@@ -72,15 +64,7 @@ void RockPaperScissors::init_widgets()
     m_widget_manager.register_widget<widget::MainMenu>(domain::entity::Mode::MainMenu, m_widget_manager);
     m_widget_manager.register_widget<widget::Registration>(domain::entity::Mode::Registration, m_registration_model);
     m_widget_manager.register_widget<widget::Searching>(domain::entity::Mode::Searching, m_searcing_model, m_room_model);
-    m_widget_manager.register_widget<widget::Room>(domain::entity::Mode::Room,
-                                                   m_room_model,
-                                                   m_player_hand_of_cards_model,
-                                                   m_north_hand_of_cards_model,
-                                                   m_west_hand_of_cards_model,
-                                                   m_east_hand_of_cards_model,
-                                                   m_play_table_hand_of_cards_model,
-                                                   m_pixmap_storage,
-                                                   m_user);
+    m_widget_manager.register_widget<widget::Room>(domain::entity::Mode::Room, m_room_model, m_pixmap_storage, m_user);
 
     m_widget_manager.activate_mode(domain::entity::Mode::MainMenu);
 }

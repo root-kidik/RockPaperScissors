@@ -1,4 +1,3 @@
-#include <domain/model/HandOfCards.hpp>
 #include <domain/model/Room.hpp>
 
 #include <RockPaperScissorsProtocol/entity/server/request/NominateCard.hpp>
@@ -7,15 +6,10 @@
 namespace rps::domain::model
 {
 
-Room::Room(domain::model::HandOfCards&                             player_hand_of_cards_model,
-           domain::model::HandOfCards&                             north_hand_of_cards_model,
-           domain::model::HandOfCards&                             west_hand_of_cards_model,
-           domain::model::HandOfCards&                             east_hand_of_cards_model,
-           domain::model::HandOfCards&                             play_table_hand_of_cards_model,
-           protocol::entity::MessageSender&                        message_sender,
+Room::Room(protocol::entity::MessageSender&                        message_sender,
            domain::entity::User&                                   user,
            const std::shared_ptr<protocol::interface::Connection>& connection) :
-players{[this, &north_hand_of_cards_model, &west_hand_of_cards_model, &east_hand_of_cards_model](const std::string& nickname)
+players{[this](const std::string& nickname)
         {
             if (!m_has_north)
             {
@@ -39,11 +33,6 @@ players{[this, &north_hand_of_cards_model, &west_hand_of_cards_model, &east_hand
             assert(false && "too many players added");
             return false;
         }},
-m_player_hand_of_cards_model{player_hand_of_cards_model},
-m_north_hand_of_cards_model{north_hand_of_cards_model},
-m_west_hand_of_cards_model{west_hand_of_cards_model},
-m_east_hand_of_cards_model{east_hand_of_cards_model},
-m_play_table_hand_of_cards_model{play_table_hand_of_cards_model},
 m_message_sender{message_sender},
 m_user{user},
 m_connection{connection},
@@ -68,19 +57,22 @@ m_has_east{}
         });
 
     is_game_started.subscribe(
-        [this](const bool& is_game_started) { m_player_hand_of_cards_model.is_locked.set_value(!is_game_started); });
+        [this](const bool& is_game_started) { player_hand_of_cards_model.is_locked.set_value(!is_game_started); });
 
     is_connected_to_room.subscribe(
         [this](const bool& is_connected_to_room)
         {
-            if (!is_connected_to_room) return;
-            
-            generate_full_backface_deck(m_player_hand_of_cards_model);
+            if (!is_connected_to_room)
+                return;
+
+            generate_full_backface_deck(player_hand_of_cards_model);
         });
 }
 
 void Room::start_game()
 {
+    assert(!is_game_started.get_value() && "game already started");
+
     protocol::entity::server::request::StartGame request;
     request.room_name = name.get_value();
     request.user_uuid = m_user.uuid;
@@ -90,10 +82,10 @@ void Room::start_game()
 
 void Room::force_nominate_card(protocol::entity::Card card)
 {
-    for (std::size_t i = 0; i < m_player_hand_of_cards_model.cards.size(); i++)
-        if (const auto& value = m_player_hand_of_cards_model.cards.get_value(i); value.type == card)
+    for (std::size_t i = 0; i < player_hand_of_cards_model.cards.size(); i++)
+        if (const auto& value = player_hand_of_cards_model.cards.get_value(i); value.type == card)
         {
-            m_player_hand_of_cards_model.cards.set_value({protocol::entity::Card::Backface, false}, i);
+            player_hand_of_cards_model.cards.set_value({protocol::entity::Card::Backface, false}, i);
             break;
         }
 }
