@@ -15,6 +15,8 @@ set(SRC
     ${SRCROOT}/handler/request/GameStarted.cpp
     ${SRCROOT}/handler/request/CardRaised.hpp
     ${SRCROOT}/handler/request/CardRaised.cpp
+    ${SRCROOT}/handler/request/RoundInfo.hpp
+    ${SRCROOT}/handler/request/RoundInfo.cpp
 
     ${SRCROOT}/handler/response/Register.hpp
     ${SRCROOT}/handler/response/Register.cpp

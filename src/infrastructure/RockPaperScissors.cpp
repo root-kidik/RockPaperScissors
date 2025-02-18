@@ -11,6 +11,7 @@
 #include <domain/handler/request/CardRaised.hpp>
 #include <domain/handler/request/GameStarted.hpp>
 #include <domain/handler/request/NewPlayerAdded.hpp>
+#include <domain/handler/request/RoundInfo.hpp>
 #include <domain/handler/response/ConnectToRoom.hpp>
 #include <domain/handler/response/CreateRoom.hpp>
 #include <domain/handler/response/Register.hpp>
@@ -47,6 +48,7 @@ void RockPaperScissors::init_message_handlers()
     m_message_executor.register_request_handler<domain::handler::request::GameStarted>(m_room_model);
     m_message_executor.register_request_handler<domain::handler::request::CardForcedNominated>(m_room_model);
     m_message_executor.register_request_handler<domain::handler::request::CardRaised>(m_room_model);
+    m_message_executor.register_request_handler<domain::handler::request::RoundInfo>(m_room_model);
 }
 
 void RockPaperScissors::connect_to_server()
