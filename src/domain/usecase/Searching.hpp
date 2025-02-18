@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include <domain/interface/usecase/Searching.hpp>
+
 namespace rps
 {
 
@@ -30,15 +32,15 @@ struct User;
 namespace rps::domain::usecase
 {
 
-class Searching
+class Searching final : public interface::usecase::Searching
 {
 public:
     Searching(protocol::entity::MessageSender&                        message_sender,
               domain::entity::User&                                   user,
               const std::shared_ptr<protocol::interface::Connection>& connection);
 
-    void create_room(std::string room_name);
-    void connect_to_room(std::string room_name);
+    void create_room(std::string room_name) override;
+    void connect_to_room(std::string room_name) override;
 
 private:
     protocol::entity::MessageSender&                        m_message_sender;

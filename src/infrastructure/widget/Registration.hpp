@@ -6,7 +6,7 @@
 
 #include <infrastructure/widget/NoSpaceLineEdit.hpp>
 
-namespace rps::domain::usecase
+namespace rps::domain::interface::usecase
 {
 class Registration;
 }
@@ -19,10 +19,10 @@ class Registration final : public QWidget
     Q_OBJECT
 
 public:
-    Registration(domain::usecase::Registration& usecase);
+    Registration(domain::interface::usecase::Registration& usecase);
 
 private:
-    domain::usecase::Registration& m_usecase;
+    domain::interface::usecase::Registration& m_usecase;
 
     QVBoxLayout m_layout;
 

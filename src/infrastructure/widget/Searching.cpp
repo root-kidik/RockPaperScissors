@@ -2,14 +2,14 @@
 
 #include <infrastructure/util/Constant.hpp>
 
-#include <domain/model/Room.hpp>
+#include <domain/interface/usecase/Searching.hpp>
 
-#include <domain/usecase/Searching.hpp>
+#include <domain/model/Room.hpp>
 
 namespace rps::infrastructure::widget
 {
 
-Searching::Searching(domain::usecase::Searching& usecase, domain::model::Room& room) :
+Searching::Searching(domain::interface::usecase::Searching& usecase, domain::model::Room& room) :
 m_usecase{usecase},
 m_room{room},
 m_create_room_button{"Создать"},

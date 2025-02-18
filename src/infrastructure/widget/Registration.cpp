@@ -2,12 +2,12 @@
 
 #include <infrastructure/util/Constant.hpp>
 
-#include <domain/usecase/Registration.hpp>
+#include <domain/interface/usecase/Registration.hpp>
 
 namespace rps::infrastructure::widget
 {
 
-Registration::Registration(domain::usecase::Registration& usecase) :
+Registration::Registration(domain::interface::usecase::Registration& usecase) :
 m_usecase{usecase},
 m_register_button{"Зарегистрироваться"}
 {

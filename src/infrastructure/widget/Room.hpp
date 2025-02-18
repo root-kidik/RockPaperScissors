@@ -23,10 +23,10 @@ struct Room;
 struct HandOfCards;
 } // namespace model
 
-namespace usecase
+namespace interface::usecase
 {
 class StartGame;
-} // namespace usecase
+} // namespace interface::usecase
 
 } // namespace rps::domain
 
@@ -38,10 +38,10 @@ class Room final : public QWidget
     Q_OBJECT
 
 public:
-    Room(domain::model::Room&        model,
-         const storage::Pixmap&      pixmap_storage,
-         domain::entity::User&       user,
-         domain::usecase::StartGame& start_game_usecase);
+    Room(domain::model::Room&                   model,
+         const storage::Pixmap&                 pixmap_storage,
+         domain::entity::User&                  user,
+         domain::interface::usecase::StartGame& start_game_usecase);
 
 private:
     domain::model::Room& m_room_model;
@@ -61,7 +61,7 @@ private:
 
     QPushButton m_start_game_button;
 
-    domain::usecase::StartGame& m_start_game_usecase;
+    domain::interface::usecase::StartGame& m_start_game_usecase;
 };
 
 } // namespace rps::infrastructure::widget

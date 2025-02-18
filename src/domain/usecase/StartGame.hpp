@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include <domain/interface/usecase/StartGame.hpp>
+
 namespace rps
 {
 
@@ -40,7 +42,7 @@ struct Room;
 namespace rps::domain::usecase
 {
 
-class StartGame
+class StartGame final : public interface::usecase::StartGame
 {
 public:
     StartGame(protocol::entity::MessageSender&                        message_sender,
@@ -48,7 +50,7 @@ public:
               const std::shared_ptr<protocol::interface::Connection>& connection,
               model::Room&                                            room_model);
 
-    void start_game();
+    void start_game() override;
 
 private:
     protocol::entity::MessageSender&                        m_message_sender;

@@ -4,18 +4,18 @@
 
 #include <infrastructure/util/Constant.hpp>
 
+#include <domain/interface/usecase/StartGame.hpp>
+
 #include <domain/model/HandOfCards.hpp>
 #include <domain/model/Room.hpp>
-
-#include <domain/usecase/StartGame.hpp>
 
 namespace rps::infrastructure::widget
 {
 
-Room::Room(domain::model::Room&        model,
-           const storage::Pixmap&      pixmap_storage,
-           domain::entity::User&       user,
-           domain::usecase::StartGame& start_game_usecase) :
+Room::Room(domain::model::Room&                   model,
+           const storage::Pixmap&                 pixmap_storage,
+           domain::entity::User&                  user,
+           domain::interface::usecase::StartGame& start_game_usecase) :
 m_room_model{model},
 m_pixmap_storage{pixmap_storage},
 m_user{user},

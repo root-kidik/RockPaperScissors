@@ -14,10 +14,10 @@ namespace model
 struct Room;
 } // namespace model
 
-namespace usecase
+namespace interface::usecase
 {
 class Searching;
-} // namespace usecase
+} // namespace interface::usecase
 
 } // namespace rps::domain
 
@@ -29,11 +29,11 @@ class Searching final : public QWidget
     Q_OBJECT
 
 public:
-    Searching(domain::usecase::Searching& usecase, domain::model::Room& room);
+    Searching(domain::interface::usecase::Searching& usecase, domain::model::Room& room);
 
 private:
-    domain::usecase::Searching& m_usecase;
-    domain::model::Room&        m_room;
+    domain::interface::usecase::Searching& m_usecase;
+    domain::model::Room&                   m_room;
 
     QVBoxLayout m_layout;
 
