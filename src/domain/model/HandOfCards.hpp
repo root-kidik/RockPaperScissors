@@ -19,8 +19,8 @@ struct HandOfCards
 
     HandOfCards();
 
-    util::Property<bool>                                                   is_locked;
-    util::Property<std::array<Card, protocol::entity::kMaxCardsPerPlayer>> cards;
+    util::Property<bool>              is_locked;
+    util::Property<std::vector<Card>> cards;
 };
 
 } // namespace rps::domain::model

@@ -42,7 +42,7 @@ m_pixmap_storage{pixmap_storage},
 m_model{model},
 m_type{type}
 {
-    m_model.cards.subscribe_on_set(
+    m_model.cards.subscribe_on_add(
         [this, &model](const domain::model::HandOfCards::Card& card, std::size_t idx)
         {
             auto& button = m_buttons[idx];

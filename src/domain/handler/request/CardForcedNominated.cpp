@@ -20,7 +20,7 @@ CardForcedNominated::Response CardForcedNominated::handle(Request&& request,
     for (std::size_t i = 0; i < player_hand.cards.size(); i++)
         if (const auto& value = player_hand.cards.get_value(i); value.type == request.card)
         {
-            player_hand.cards.set_value({protocol::entity::Card::Backface, false}, i);
+            player_hand.cards.update_value({protocol::entity::Card::Backface, false}, i);
             break;
         }
 

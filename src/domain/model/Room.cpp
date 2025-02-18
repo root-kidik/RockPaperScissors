@@ -12,7 +12,7 @@ namespace rps::domain::model
 Room::Room(protocol::entity::MessageSender&                        message_sender,
            domain::entity::User&                                   user,
            const std::shared_ptr<protocol::interface::Connection>& connection) :
-players{[this](const std::string& nickname)
+players{[this](const std::string& nickname, std::size_t idx)
         {
             if (!m_has_north)
             {
@@ -77,7 +77,7 @@ void Room::generate_full_backface_deck(domain::model::HandOfCards& hand_of_cards
     using namespace rps::protocol::entity;
 
     for (std::uint8_t i = 0; i < protocol::entity::kMaxCardsPerPlayer; i++)
-        hand_of_cards_model.cards.set_value({Card::Backface, false}, i);
+        hand_of_cards_model.cards.add_value({Card::Backface, false});
 }
 
 } // namespace rps::domain::model

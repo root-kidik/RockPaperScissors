@@ -1,6 +1,5 @@
 #pragma once
 
-#include <array>
 #include <cassert>
 #include <functional>
 #include <vector>
@@ -50,10 +49,10 @@ public:
         if (m_validate_callback && !m_validate_callback(value))
             return;
 
-        for (auto& subscriber : m_subscribers)
-            subscriber(value);
-
         m_value = std::move(value);
+
+        for (auto& subscriber : m_subscribers)
+            subscriber(m_value);
     }
 
 private:
@@ -72,83 +71,20 @@ template <typename T>
 class Property<std::vector<T>>
 {
 public:
-    using ValidateFn = std::function<bool(const T&)>;
-    using CallbackFn = std::function<void(const T&)>;
-
-    Property(ValidateFn validate_callback = nullptr) : m_validate_callback{std::move(validate_callback)}
-    {
-    }
-
-    void subscribe(CallbackFn callback)
-    {
-        assert(callback != nullptr && "callback must be not nullptr");
-
-        m_subscribers.push_back(std::move(callback));
-    }
-
-    void add_value(T value)
-    {
-        if (m_validate_callback && !m_validate_callback(value))
-            return;
-
-        for (auto& subscriber : m_subscribers)
-            subscriber(value);
-
-        m_values.push_back(std::move(value));
-    }
-
-private:
-    ValidateFn m_validate_callback;
-
-
-    std::vector<T> m_values;
-
-    std::vector<CallbackFn> m_subscribers;
-};
-
-template <typename T, std::size_t Size>
-class Property<std::array<T, Size>>
-{
-public:
-    using ValidateFn = std::function<bool(const T&)>;
+    using ValidateFn = std::function<bool(const T&, std::size_t)>;
     using CallbackFn = std::function<void(const T&, std::size_t)>;
 
-    static std::size_t size()
-    {
-        return Size;
-    }
-
-    Property(ValidateFn validate_callback_on_set = nullptr, ValidateFn validate_callback_on_update = nullptr) :
-    m_validate_callback_on_set{std::move(validate_callback_on_set)},
-    m_validate_callback_on_update{std::move(validate_callback_on_update)}
+    Property(ValidateFn validate_on_add_callback = nullptr, ValidateFn validate_on_update_callback = nullptr) :
+    m_validate_on_add_callback{std::move(validate_on_add_callback)},
+    m_validate_on_update_callback{std::move(validate_on_update_callback)}
     {
     }
 
-    void subscribe_on_set(CallbackFn callback)
+    void subscribe_on_add(CallbackFn callback)
     {
         assert(callback != nullptr && "callback must be not nullptr");
 
-        m_on_set_subscribers.push_back(std::move(callback));
-    }
-
-    void set_value(T value, std::size_t idx)
-    {
-        assert(idx >= 0 && "idx must be greater or equal 0");
-        assert(idx < Size && "idx must be less than size");
-
-#ifndef NDEBUG
-        m_setted_idxs = std::min(m_setted_idxs + 1, Size);
-#endif
-
-        assert(idx < m_setted_idxs && "you tried set value, that already setted");
-
-        if (m_validate_callback_on_set && !m_validate_callback_on_set(value))
-            return;
-
-        for (auto& subscriber : m_on_set_subscribers)
-            subscriber(value, idx);
-
-        m_values[idx] = std::move(value);
+        m_on_add_subscribers.push_back(std::move(callback));
     }
 
     void subscribe_on_update(CallbackFn callback)
@@ -158,44 +94,53 @@ public:
         m_on_update_subscribers.push_back(std::move(callback));
     }
 
-    void update_value(T value, std::size_t idx)
+    void add_value(T value)
     {
-        assert(idx >= 0 && "idx must be greater or equal than 0");
-        assert(idx < Size && "idx must be less than size");
+        const auto sz = size();
 
-#ifndef NDEBUG
-        assert(idx < m_setted_idxs && "you tried update value, that not yet setted");
-#endif
-
-        if (m_validate_callback_on_update && !m_validate_callback_on_update(value))
+        if (m_validate_on_add_callback && !m_validate_on_add_callback(value, sz))
             return;
 
-        for (auto& subscriber : m_on_update_subscribers)
-            subscriber(value, idx);
+        m_values.push_back(std::move(value));
 
-        m_values[idx] = std::move(value);
+        for (auto& subscriber : m_on_add_subscribers)
+            subscriber(m_values.back(), sz);
     }
 
-    const T& get_value(std::size_t idx) const
+    void update_value(T value, std::size_t idx)
     {
-#ifndef NDEBUG
-        assert(idx < m_setted_idxs && "you tried get value, that not yet setted");
-#endif
+        assert(idx >= 0 && "idx must be greater or equal 0");
+        assert(idx < size() && "idx must be less than size");
+
+        if (m_validate_on_update_callback && !m_validate_on_update_callback(value, idx))
+            return;
+
+        m_values[idx] = std::move(value);
+
+        for (auto& subscriber : m_on_update_subscribers)
+            subscriber(m_values[idx], idx);
+    }
+
+    const T& get_value(std::size_t idx)
+    {
+        assert(idx >= 0 && "idx must be greater or equal 0");
+        assert(idx < size() && "idx must be less than size");
 
         return m_values[idx];
     }
 
+    std::size_t size()
+    {
+        return m_values.size();
+    }
+
 private:
-    ValidateFn m_validate_callback_on_set;
-    ValidateFn m_validate_callback_on_update;
+    ValidateFn m_validate_on_add_callback;
+    ValidateFn m_validate_on_update_callback;
 
-    std::array<T, Size> m_values;
+    std::vector<T> m_values;
 
-#ifndef NDEBUG
-    std::size_t m_setted_idxs{};
-#endif
-
-    std::vector<CallbackFn> m_on_set_subscribers;
+    std::vector<CallbackFn> m_on_add_subscribers;
     std::vector<CallbackFn> m_on_update_subscribers;
 };
 
