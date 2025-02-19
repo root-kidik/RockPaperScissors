@@ -71,8 +71,8 @@ template <typename T>
 class Property<std::vector<T>>
 {
 public:
-    using ValidateFn       = std::function<bool(const T&, std::size_t)>;
-    using CallbackFn       = std::function<void(const T&, std::size_t)>;
+    using ValidateFn = std::function<bool(const T&, std::size_t)>;
+    using CallbackFn = std::function<void(const T&, std::size_t)>;
 
     Property(ValidateFn validate_on_add_callback = nullptr, ValidateFn validate_on_update_callback = nullptr) :
     m_validate_on_add_callback{std::move(validate_on_add_callback)},
@@ -140,8 +140,8 @@ private:
 
     std::vector<T> m_values;
 
-    std::vector<CallbackFn>       m_on_add_subscribers;
-    std::vector<CallbackFn>       m_on_update_subscribers;
+    std::vector<CallbackFn> m_on_add_subscribers;
+    std::vector<CallbackFn> m_on_update_subscribers;
 };
 
 } // namespace rps::domain::util

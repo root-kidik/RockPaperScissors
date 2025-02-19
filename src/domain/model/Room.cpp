@@ -48,7 +48,7 @@ m_has_east{}
     player_hand_of_cards_model.cards.subscribe_on_update(
         [this](const domain::model::HandOfCards::Card& card, std::size_t idx)
         {
-            if (!card.is_nominated || card.type == protocol::entity::Card::Backface || card.is_force_nominated)
+            if (!card.is_nominated)
                 return;
 
             assert(card.type != protocol::entity::Card::Backface && "Card::Backface can not be nominated");

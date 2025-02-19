@@ -9,10 +9,10 @@
 
 #include <domain/handler/request/CardForcedNominated.hpp>
 #include <domain/handler/request/CardRaised.hpp>
+#include <domain/handler/request/DealMissingCard.hpp>
 #include <domain/handler/request/GameStarted.hpp>
 #include <domain/handler/request/NewPlayerAdded.hpp>
 #include <domain/handler/request/RoundInfo.hpp>
-#include <domain/handler/request/DealMissingCard.hpp>
 #include <domain/handler/response/ConnectToRoom.hpp>
 #include <domain/handler/response/CreateRoom.hpp>
 #include <domain/handler/response/Register.hpp>

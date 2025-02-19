@@ -81,7 +81,8 @@ m_type{type}
 
             connect(&button,
                     &QPushButton::pressed,
-                    [this, &model, idx]() { model.cards.update_value({model.cards.get_value(idx).type, true, false, false}, idx); });
+                    [this, &model, idx]()
+                    { model.cards.update_value({model.cards.get_value(idx).type, true, false, false}, idx); });
         });
 
     m_model.cards.subscribe_on_update(
