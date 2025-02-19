@@ -81,7 +81,7 @@ m_type{type}
 
             connect(&button,
                     &QPushButton::pressed,
-                    [this, &model, idx]() { model.cards.update_value({model.cards.get_value(idx).type, true}, idx); });
+                    [this, &model, idx]() { model.cards.update_value({model.cards.get_value(idx).type, true, false, false}, idx); });
         });
 
     m_model.cards.subscribe_on_update(
@@ -96,7 +96,8 @@ m_type{type}
                 btn.setStyleSheet(kDefaultCardStyle);
 
             button.setIcon(m_pixmap_storage.get(card.type));
-            button.setStyleSheet(card.is_nominated ? kPressedCardStyle : kDefaultCardStyle);
+            button.setStyleSheet((card.is_nominated || card.is_force_nominated) ? kPressedCardStyle : kDefaultCardStyle);
+            button.setHidden(card.is_raised);
         });
 
     QLayout* layout;

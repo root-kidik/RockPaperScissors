@@ -18,9 +18,9 @@ DealMissingCard::Response DealMissingCard::handle(Request&&                     
     auto& player_hand = m_room.player_hand_of_cards_model;
 
     for (std::size_t i = 0; i < player_hand.cards.size(); i++)
-        if (const auto& value = player_hand.cards.get_value(i); value.type == protocol::entity::Card::Backface)
+        if (const auto& value = player_hand.cards.get_value(i); value.is_raised)
         {
-            player_hand.cards.update_value({request.card, false}, i);
+            player_hand.cards.update_value({request.card, false, false, false}, i);
             break;
         }
 

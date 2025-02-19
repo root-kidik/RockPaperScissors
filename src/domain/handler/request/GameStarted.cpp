@@ -18,7 +18,7 @@ GameStarted::Response GameStarted::handle(Request&& request, const std::shared_p
     m_room_model.is_game_started.set_value(true);
 
     for (std::size_t i = 0; i < request.cards.size(); i++)
-        m_room_model.player_hand_of_cards_model.cards.update_value({request.cards[i], false}, i);
+        m_room_model.player_hand_of_cards_model.cards.update_value({request.cards[i], false, false, false}, i);
 
     return response;
 }

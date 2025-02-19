@@ -1,7 +1,5 @@
 #pragma once
 
-#include <array>
-
 #include <RockPaperScissorsProtocol/entity/Card.hpp>
 
 #include <domain/util/Property.hpp>
@@ -15,6 +13,8 @@ struct HandOfCards
     {
         protocol::entity::Card type{protocol::entity::Card::Backface};
         bool                   is_nominated{};
+        bool                   is_raised{};
+        bool                   is_force_nominated{};
     };
 
     HandOfCards();

@@ -17,9 +17,9 @@ CardRaised::Response CardRaised::handle(Request&& request, const std::shared_ptr
     auto& player_hand = m_room.player_hand_of_cards_model;
 
     for (std::size_t i = 0; i < player_hand.cards.size(); i++)
-        if (const auto& value = player_hand.cards.get_value(i); value.type == request.card && value.is_nominated)
+        if (const auto& value = player_hand.cards.get_value(i); value.is_nominated || value.is_force_nominated)
         {
-            player_hand.cards.update_value({protocol::entity::Card::Backface, false}, i);
+            player_hand.cards.update_value({protocol::entity::Card::Backface, false, true, false}, i);
             break;
         }
 

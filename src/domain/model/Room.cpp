@@ -48,8 +48,11 @@ m_has_east{}
     player_hand_of_cards_model.cards.subscribe_on_update(
         [this](const domain::model::HandOfCards::Card& card, std::size_t idx)
         {
-            if (!card.is_nominated || card.type == protocol::entity::Card::Backface)
+            if (!card.is_nominated || card.type == protocol::entity::Card::Backface || card.is_force_nominated)
                 return;
+
+            assert(card.type != protocol::entity::Card::Backface && "Card::Backface can not be nominated");
+            assert(!card.is_force_nominated && "Card already force nominated");
 
             protocol::entity::server::request::NominateCard request;
             request.room_name = name.get_value();
@@ -77,7 +80,7 @@ void Room::generate_full_backface_deck(domain::model::HandOfCards& hand_of_cards
     using namespace rps::protocol::entity;
 
     for (std::uint8_t i = 0; i < protocol::entity::kMaxCardsPerPlayer; i++)
-        hand_of_cards_model.cards.add_value({Card::Backface, false});
+        hand_of_cards_model.cards.add_value({Card::Backface, false, false, false});
 }
 
 } // namespace rps::domain::model
