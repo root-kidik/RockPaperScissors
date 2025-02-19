@@ -20,6 +20,7 @@ struct HandOfCards
     HandOfCards();
 
     util::Property<bool>              is_locked;
+    util::Property<bool>              is_backface_hidden;
     util::Property<std::vector<Card>> cards;
 };
 

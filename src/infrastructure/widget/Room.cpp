@@ -44,17 +44,13 @@ m_start_game_usecase{start_game_usecase}
 
     m_layout.addWidget(&m_table, 1, 1);
 
-    m_layout.addWidget(&m_start_game_button, 1, 1);
-    m_start_game_button.setHidden(true);
-
     m_room_model.is_room_created.subscribe(
         [this](const bool& is_room_created)
         {
             if (!is_room_created)
                 return;
 
-            m_table.setHidden(true);
-            m_start_game_button.setHidden(false);
+            m_layout.addWidget(&m_start_game_button, 1, 1);
             m_start_game_button.setStyleSheet(util::kDefaultGreenButtonStyle);
 
             connect(&m_start_game_button, &QPushButton::pressed, [this]() { m_start_game_usecase.start_game(); });
@@ -66,8 +62,9 @@ m_start_game_usecase{start_game_usecase}
             if (!is_game_started)
                 return;
 
+            m_layout.removeWidget(&m_start_game_button);
             m_start_game_button.setHidden(true);
-            m_table.setHidden(false);
+            m_layout.addWidget(&m_table, 1, 1);
         });
 }
 

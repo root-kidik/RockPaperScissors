@@ -6,6 +6,8 @@
 
 #include <domain/model/Room.hpp>
 
+#include <domain/util/Util.hpp>
+
 namespace rps::domain::model
 {
 
@@ -17,19 +19,19 @@ players{[this](const std::string& nickname, std::size_t idx)
             if (!m_has_north)
             {
                 m_has_north = true;
-                generate_full_backface_deck(north_hand_of_cards_model);
+                util::generate_full_backface_deck(north_hand_of_cards_model);
                 return true;
             }
             else if (!m_has_west)
             {
                 m_has_west = true;
-                generate_full_backface_deck(west_hand_of_cards_model);
+                util::generate_full_backface_deck(west_hand_of_cards_model);
                 return true;
             }
             else if (!m_has_east)
             {
                 m_has_east = true;
-                generate_full_backface_deck(east_hand_of_cards_model);
+                util::generate_full_backface_deck(east_hand_of_cards_model);
                 return true;
             }
 
@@ -71,16 +73,13 @@ m_has_east{}
             if (!is_connected_to_room)
                 return;
 
-            generate_full_backface_deck(player_hand_of_cards_model);
+            util::generate_full_backface_deck(player_hand_of_cards_model);
+
+            play_table_hand_of_cards_model.is_locked.set_value(false);
+            play_table_hand_of_cards_model.is_backface_hidden.set_value(true);
+            util::generate_full_backface_deck(play_table_hand_of_cards_model);
+            play_table_hand_of_cards_model.is_locked.set_value(true);
         });
-}
-
-void Room::generate_full_backface_deck(domain::model::HandOfCards& hand_of_cards_model)
-{
-    using namespace rps::protocol::entity;
-
-    for (std::uint8_t i = 0; i < protocol::entity::kMaxCardsPerPlayer; i++)
-        hand_of_cards_model.cards.add_value({Card::Backface, false, false, false});
 }
 
 } // namespace rps::domain::model

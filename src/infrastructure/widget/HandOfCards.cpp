@@ -76,6 +76,7 @@ m_type{type}
 
             button.setIconSize(size);
             button.setMaximumSize(size + kMaxAdditionSize);
+            button.setHidden(m_model.is_backface_hidden.get_value() && card.type == protocol::entity::Card::Backface);
 
             layout()->addWidget(&button);
 
@@ -98,7 +99,8 @@ m_type{type}
 
             button.setIcon(m_pixmap_storage.get(card.type));
             button.setStyleSheet((card.is_nominated || card.is_force_nominated) ? kPressedCardStyle : kDefaultCardStyle);
-            button.setHidden(card.is_raised);
+            button.setHidden(card.is_raised ||
+                             (m_model.is_backface_hidden.get_value() && card.type == protocol::entity::Card::Backface));
         });
 
     QLayout* layout;

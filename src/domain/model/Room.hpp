@@ -58,8 +58,6 @@ struct Room
     domain::model::HandOfCards play_table_hand_of_cards_model;
 
 private:
-    void generate_full_backface_deck(domain::model::HandOfCards& hand_of_cards_model);
-
     protocol::entity::MessageSender&                        m_message_sender;
     domain::entity::User&                                   m_user;
     const std::shared_ptr<protocol::interface::Connection>& m_connection;

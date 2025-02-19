@@ -5,6 +5,7 @@ namespace rps::domain::model
 
 HandOfCards::HandOfCards() :
 is_locked{true},
+is_backface_hidden{false},
 cards{
 #ifndef NDEBUG
     [](const Card& card, std::size_t idx)
