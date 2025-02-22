@@ -2,37 +2,37 @@
 
 1. three types of cards - rock, paper, scissors
 2. turn - discard player card
-3. round - 6 turns
-4. deck - 36 cards
-5. hand - 6 cards
+3. round - 4 turns
+4. deck - 16 cards
+5. hand - 4 cards
 
 # Limitations
 
-1. Maximum number of players - 6
+1. Maximum number of players - 4
 
 # Server
 
-- [ ] Accept connections from players
-- [ ] Give an identifier to a player (his ID)
-- [ ] Store a list of all players
-- [ ] Start the game
-- [ ] Start a timer before each turn
-- [ ] Deal cards at the beginning of the game
-- [ ] Receive each player's turn
-- [ ] Monitor the game board (the cards that players played)
-- [ ] Randomly select any card after time has elapsed
-- [ ] Keep track of each turn
-- [ ] Determine the winner of the round, turn
-- [ ] Add missing cards after the turn
+- [x] Accept connections from players
+- [x] Give an identifier to a player (his ID)
+- [x] Store a list of all players
+- [x] Start the game
+- [x] Start a timer before each turn
+- [x] Deal cards at the beginning of the game
+- [x] Receive each player's turn
+- [x] Monitor the game board (the cards that players played)
+- [x] Randomly select any card after time has elapsed
+- [x] Keep track of each turn
+- [x] Determine the winner of the round, turn
+- [x] Add missing cards after the turn
 
 # Client
 
-- [ ] Receive notification about new player
-- [ ] Receive notification about game start
-- [ ] Connect to server
-- [ ] Receive cards from server
-- [ ] Make a move (Nominate card for move)
-- [ ] Receive notification about round results
-- [ ] Accept missing cards
-- [ ] Create room (server)
-- [ ] Start game
+- [x] Receive notification about new player
+- [x] Receive notification about game start
+- [x] Connect to server
+- [x] Receive cards from server
+- [x] Make a move (Nominate card for move)
+- [x] Receive notification about round results
+- [x] Accept missing cards
+- [x] Create room (server)
+- [x] Start game
