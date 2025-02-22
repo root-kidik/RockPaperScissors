@@ -42,77 +42,86 @@ m_pixmap_storage{pixmap_storage},
 m_model{model},
 m_type{type}
 {
-    m_model.cards.subscribe_on_add(
-        [this, &model](const domain::model::HandOfCards::Card& card, std::size_t idx)
-        {
-            auto& button = m_buttons[idx];
-
-            const auto& original_pixmap = m_pixmap_storage.get(card.type);
-
-            if (m_type == Type::VerticalLeft)
-            {
-                QTransform transform;
-                transform.rotate(kVerticalLeftRotate);
-
-                button.setIcon(original_pixmap.transformed(transform, Qt::SmoothTransformation));
-            }
-            else if (m_type == Type::VerticalRight)
-            {
-                QTransform transform;
-                transform.rotate(kVerticalRightRotate);
-
-                button.setIcon(original_pixmap.transformed(transform, Qt::SmoothTransformation));
-            }
-            else
-                button.setIcon(original_pixmap);
-
-            button.setStyleSheet(kDefaultCardStyle);
-
-            QSize size;
-            if (m_type == Type::Horizontal)
-                size = {kBaseWidthCard, kBaseHeightCard};
-            else
-                size = {kBaseHeightCard, kBaseWidthCard};
-
-            button.setIconSize(size);
-            button.setMaximumSize(size + kMaxAdditionSize);
-            button.setHidden(m_model.is_backface_hidden.get_value() && card.type == protocol::entity::Card::Backface);
-
-            layout()->addWidget(&button);
-
-            connect(&button,
-                    &QPushButton::pressed,
-                    [this, &model, idx]()
-                    { model.cards.update_value({model.cards.get_value(idx).type, true, false, false}, idx); });
-        });
-
-    m_model.cards.subscribe_on_update(
-        [this](const domain::model::HandOfCards::Card& card, std::size_t idx)
-        {
-            assert(idx < m_buttons.size() && "not valid idx");
-            assert(idx >= 0 && "idx must be ge zero");
-
-            auto& button = m_buttons[idx];
-
-            for (auto& btn : m_buttons)
-                btn.setStyleSheet(kDefaultCardStyle);
-
-            button.setIcon(m_pixmap_storage.get(card.type));
-            button.setStyleSheet((card.is_nominated || card.is_force_nominated) ? kPressedCardStyle : kDefaultCardStyle);
-            button.setHidden(card.is_raised ||
-                             (m_model.is_backface_hidden.get_value() && card.type == protocol::entity::Card::Backface));
-        });
-
-    QLayout* layout;
+    QLayout* new_layout;
 
     if (m_type != Type::Horizontal)
-        layout = new QVBoxLayout;
+        new_layout = new QVBoxLayout;
     else
-        layout = new QHBoxLayout;
+        new_layout = new QHBoxLayout;
 
-    setLayout(layout);
+    setLayout(new_layout);
 
-    layout->setAlignment(Qt::AlignCenter);
+    layout()->setAlignment(Qt::AlignCenter);
+
+    assert(m_model.cards.size() == m_buttons.size() && "size must be equal");
+
+    for (std::size_t i = 0; i < m_model.cards.size(); i++)
+    {
+        auto& card   = m_model.cards[i];
+        auto& button = m_buttons[i];
+
+        const auto& original_pixmap = m_pixmap_storage.get(card.type.get_value());
+
+        if (m_type == Type::VerticalLeft)
+        {
+            QTransform transform;
+            transform.rotate(kVerticalLeftRotate);
+
+            button.setIcon(original_pixmap.transformed(transform, Qt::SmoothTransformation));
+        }
+        else if (m_type == Type::VerticalRight)
+        {
+            QTransform transform;
+            transform.rotate(kVerticalRightRotate);
+
+            button.setIcon(original_pixmap.transformed(transform, Qt::SmoothTransformation));
+        }
+        else
+            button.setIcon(original_pixmap);
+
+        button.setStyleSheet(kDefaultCardStyle);
+
+        QSize size;
+        if (m_type == Type::Horizontal)
+            size = {kBaseWidthCard, kBaseHeightCard};
+        else
+            size = {kBaseHeightCard, kBaseWidthCard};
+
+        button.setIconSize(size);
+        button.setMaximumSize(size + kMaxAdditionSize);
+        button.setHidden(m_model.is_backface_hidden.get_value() && card.type.get_value() == protocol::entity::Card::Backface);
+
+        layout()->addWidget(&button);
+
+        connect(&button, &QPushButton::pressed, [this, &card]() { card.is_nominated.set_value(true); });
+
+        card.is_nominated.subscribe(
+            [this, &card, &button](const bool& is_nominated)
+            {
+                for (auto& btn : m_buttons)
+                    btn.setStyleSheet(kDefaultCardStyle);
+
+                button.setStyleSheet(is_nominated ? kPressedCardStyle : kDefaultCardStyle);
+            });
+
+        card.is_force_nominated.subscribe(
+            [this, &card, &button](const bool& is_force_nominated)
+            {
+                for (auto& btn : m_buttons)
+                    btn.setStyleSheet(kDefaultCardStyle);
+
+                button.setStyleSheet(is_force_nominated ? kPressedCardStyle : kDefaultCardStyle);
+            });
+
+        card.is_raised.subscribe([this, &card, &button](const bool& is_raised) { button.setHidden(is_raised); });
+
+        card.type.subscribe(
+            [this, &card, &button](const protocol::entity::Card& type)
+            {
+                button.setHidden(card.is_raised.get_value() || (m_model.is_backface_hidden.get_value() && card.type.get_value() == protocol::entity::Card::Backface));
+                button.setIcon(m_pixmap_storage.get(type));
+            });
+    };
 }
 
 } // namespace rps::infrastructure::widget

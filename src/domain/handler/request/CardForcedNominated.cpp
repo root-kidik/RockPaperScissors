@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <domain/model/Room.hpp>
 
 #include <domain/handler/request/CardForcedNominated.hpp>
@@ -15,14 +17,16 @@ CardForcedNominated::Response CardForcedNominated::handle(Request&& request,
     Response response;
     response.is_ok = true;
 
-    auto& player_hand = m_room.player_hand_of_cards_model;
+    auto& player_hand_cards = m_room.player_hand_of_cards_model.cards;
 
-    for (std::size_t i = 0; i < player_hand.cards.size(); i++)
-        if (const auto& value = player_hand.cards.get_value(i); value.type == request.card)
-        {
-            player_hand.cards.update_value({value.type, false, false, true}, i);
-            break;
-        }
+    auto it = std::find_if(player_hand_cards.begin(),
+                           player_hand_cards.end(),
+                           [type = request.card](const model::HandOfCards::Card& card)
+                           { return card.type.get_value() == type && !card.is_raised.get_value(); });
+
+    assert(it != player_hand_cards.end() && "force nominated card must exist");
+
+    it->is_force_nominated.set_value(true);
 
     return response;
 }

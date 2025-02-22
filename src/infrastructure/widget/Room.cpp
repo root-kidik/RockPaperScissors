@@ -42,6 +42,23 @@ m_start_game_usecase{start_game_usecase}
     m_layout.addWidget(&m_east_hand, 1, 2);
     m_layout.addWidget(&m_player_hand, 2, 1);
 
+    m_north_hand.setHidden(true);
+    m_west_hand.setHidden(true);
+    m_east_hand.setHidden(true);
+    m_player_hand.setHidden(true);
+    m_table.setHidden(true);
+
+    model.north_hand_of_cards_model.is_visible.subscribe(
+        [this](const bool& is_visible) { m_north_hand.setVisible(is_visible); });
+    model.west_hand_of_cards_model.is_visible.subscribe(
+        [this](const bool& is_visible) { m_west_hand.setVisible(is_visible); });
+    model.east_hand_of_cards_model.is_visible.subscribe(
+        [this](const bool& is_visible) { m_east_hand.setVisible(is_visible); });
+    model.player_hand_of_cards_model.is_visible.subscribe(
+        [this](const bool& is_visible) { m_player_hand.setVisible(is_visible); });
+    model.play_table_hand_of_cards_model.is_visible.subscribe(
+        [this](const bool& is_visible) { m_table.setVisible(is_visible); });
+
     m_layout.addWidget(&m_table, 1, 1);
 
     m_room_model.is_room_created.subscribe(

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 #include <RockPaperScissorsProtocol/entity/Card.hpp>
 
 #include <domain/util/Property.hpp>
@@ -11,17 +13,20 @@ struct HandOfCards
 {
     struct Card
     {
-        protocol::entity::Card type{protocol::entity::Card::Backface};
-        bool                   is_nominated{};
-        bool                   is_raised{};
-        bool                   is_force_nominated{};
+        Card(const HandOfCards& hand);
+
+        util::Property<protocol::entity::Card> type;
+        util::Property<bool>                   is_nominated;
+        util::Property<bool>                   is_raised;
+        util::Property<bool>                   is_force_nominated;
     };
 
     HandOfCards();
 
-    util::Property<bool>              is_locked;
-    util::Property<bool>              is_backface_hidden;
-    util::Property<std::vector<Card>> cards;
+    util::Property<bool>                                   is_visible;
+    util::Property<bool>                                   is_nominating_locked;
+    util::Property<bool>                                   is_backface_hidden;
+    std::array<Card, protocol::entity::kMaxCardsPerPlayer> cards;
 };
 
 } // namespace rps::domain::model

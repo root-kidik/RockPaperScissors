@@ -6,8 +6,6 @@
 
 #include <domain/model/Room.hpp>
 
-#include <domain/util/Util.hpp>
-
 namespace rps::domain::model
 {
 
@@ -19,19 +17,19 @@ players{[this](const std::string& nickname, std::size_t idx)
             if (!m_has_north)
             {
                 m_has_north = true;
-                util::generate_full_backface_deck(north_hand_of_cards_model);
+                north_hand_of_cards_model.is_visible.set_value(true);
                 return true;
             }
             else if (!m_has_west)
             {
                 m_has_west = true;
-                util::generate_full_backface_deck(west_hand_of_cards_model);
+                west_hand_of_cards_model.is_visible.set_value(true);
                 return true;
             }
             else if (!m_has_east)
             {
                 m_has_east = true;
-                util::generate_full_backface_deck(east_hand_of_cards_model);
+                east_hand_of_cards_model.is_visible.set_value(true);
                 return true;
             }
 
@@ -47,25 +45,25 @@ m_has_north{},
 m_has_west{},
 m_has_east{}
 {
-    player_hand_of_cards_model.cards.subscribe_on_update(
-        [this](const domain::model::HandOfCards::Card& card, std::size_t idx)
-        {
-            if (!card.is_nominated)
-                return;
+    play_table_hand_of_cards_model.is_backface_hidden.set_value(true);
 
-            assert(card.type != protocol::entity::Card::Backface && "Card::Backface can not be nominated");
-            assert(!card.is_force_nominated && "Card already force nominated");
+    for (auto& card : player_hand_of_cards_model.cards)
+        card.is_nominated.subscribe(
+            [this, &card](const bool& is_nominated)
+            {
+                if (!is_nominated)
+                    return;
 
-            protocol::entity::server::request::NominateCard request;
-            request.room_name = name.get_value();
-            request.user_uuid = m_user.uuid;
-            request.card      = card.type;
+                protocol::entity::server::request::NominateCard request;
+                request.room_name = name.get_value();
+                request.user_uuid = m_user.uuid;
+                request.card      = card.type.get_value();
 
-            m_message_sender.send(std::move(request), m_connection);
-        });
+                m_message_sender.send(std::move(request), m_connection);
+            });
 
     is_game_started.subscribe(
-        [this](const bool& is_game_started) { player_hand_of_cards_model.is_locked.set_value(!is_game_started); });
+        [this](const bool& is_game_started) { player_hand_of_cards_model.is_nominating_locked.set_value(!is_game_started); });
 
     is_connected_to_room.subscribe(
         [this](const bool& is_connected_to_room)
@@ -73,12 +71,7 @@ m_has_east{}
             if (!is_connected_to_room)
                 return;
 
-            util::generate_full_backface_deck(player_hand_of_cards_model);
-
-            play_table_hand_of_cards_model.is_locked.set_value(false);
-            play_table_hand_of_cards_model.is_backface_hidden.set_value(true);
-            util::generate_full_backface_deck(play_table_hand_of_cards_model);
-            play_table_hand_of_cards_model.is_locked.set_value(true);
+            player_hand_of_cards_model.is_visible.set_value(true);
         });
 }
 

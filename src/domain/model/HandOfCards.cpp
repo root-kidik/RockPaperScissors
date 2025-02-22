@@ -3,20 +3,19 @@
 namespace rps::domain::model
 {
 
+HandOfCards::Card::Card(const HandOfCards& hand) :
+type{protocol::entity::Card::Backface},
+is_nominated{false, [&hand](const bool& value) { return !hand.is_nominating_locked.get_value(); }},
+is_raised{false},
+is_force_nominated{false}
+{
+}
+
 HandOfCards::HandOfCards() :
-is_locked{true},
+is_visible{false},
+is_nominating_locked{true},
 is_backface_hidden{false},
-cards{
-#ifndef NDEBUG
-    [](const Card& card, std::size_t idx)
-    {
-        assert(idx < protocol::entity::kMaxCardsPerPlayer && "added too many cards");
-        return true;
-    },
-#else
-    nullptr,
-#endif
-    [this](const Card& card, std::size_t idx) { return !is_locked.get_value(); }}
+cards{Card{*this}, Card{*this}, Card{*this}, Card{*this}}
 {
 }
 

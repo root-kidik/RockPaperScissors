@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <domain/model/Room.hpp>
 
 #include <domain/handler/request/CardRaised.hpp>
@@ -14,14 +16,18 @@ CardRaised::Response CardRaised::handle(Request&& request, const std::shared_ptr
     Response response;
     response.is_ok = true;
 
-    auto& player_hand = m_room.player_hand_of_cards_model;
+    auto& player_hand_cards = m_room.player_hand_of_cards_model.cards;
 
-    for (std::size_t i = 0; i < player_hand.cards.size(); i++)
-        if (const auto& value = player_hand.cards.get_value(i); value.is_nominated || value.is_force_nominated)
-        {
-            player_hand.cards.update_value({protocol::entity::Card::Backface, false, true, false}, i);
-            break;
-        }
+    auto it = std::find_if(player_hand_cards.begin(),
+                           player_hand_cards.end(),
+                           [type = request.card](const model::HandOfCards::Card& card)
+                           { return card.is_nominated.get_value() || card.is_force_nominated.get_value(); });
+
+    assert(it != player_hand_cards.end() && "nominated or force nominated card must exist");
+
+    it->is_nominated.set_value(false);
+    it->is_force_nominated.set_value(false);
+    it->is_raised.set_value(true);
 
     return response;
 }
