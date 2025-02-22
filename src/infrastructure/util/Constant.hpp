@@ -18,10 +18,10 @@ inline constexpr const char* kDefaultGreenButtonStyle =
     "font-weight: bold;"
     "}"
     "QPushButton:hover {"
-    "background-color:rgb(46, 199, 54);"
+    "background-color:rgb(28, 119, 32);"
     "}"
     "QPushButton:pressed {"
-    "background-color:rgb(46, 199, 54);"
+    "background-color:rgb(28, 119, 32);"
     "}";
 
 inline constexpr const char* kDefaultRedButtonStyle =
@@ -35,10 +35,10 @@ inline constexpr const char* kDefaultRedButtonStyle =
     "font-weight: bold;"
     "}"
     "QPushButton:hover {"
-    "background-color:rgb(184, 42, 42);"
+    "background-color:rgb(121, 26, 26);"
     "}"
     "QPushButton:pressed {"
-    "background-color:rgb(184, 42, 42);"
+    "background-color:rgb(121, 26, 26);"
     "}";
 
 inline constexpr const char* kDefaultGreenLabelStyle =

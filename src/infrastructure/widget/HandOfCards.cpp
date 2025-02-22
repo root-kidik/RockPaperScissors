@@ -15,17 +15,31 @@ constexpr std::int8_t kVerticalRightRotate = 90;
 
 constexpr const char* kDefaultCardStyle =
     "QPushButton {"
-    "background-color:rgb(76, 175, 80);"
+    "background-color:rgb(137, 102, 160);"
     "border-radius: 10px;"
     "padding: 10px;"
     "}"
     "QPushButton:hover {"
-    "background-color:rgb(32, 146, 37);"
+    "background-color:rgb(83, 50, 105);"
     "}";
 
 constexpr const char* kPressedCardStyle =
     "QPushButton {"
-    "background-color:rgb(22, 102, 26);"
+    "background-color:rgb(57, 33, 73);"
+    "border-radius: 10px;"
+    "padding: 10px;"
+    "}";
+
+constexpr const char* kWinCardStyle = 
+    "QPushButton {"
+    "background-color:rgb(21, 68, 7);"
+    "border-radius: 10px;"
+    "padding: 10px;"
+    "}";
+
+constexpr const char* kLoseCardStyle =
+    "QPushButton {"
+    "background-color:rgb(75, 3, 3);"
     "border-radius: 10px;"
     "padding: 10px;"
     "}";
@@ -123,6 +137,16 @@ m_type{type}
                     (m_model.is_backface_hidden.get_value() && card.type.get_value() == protocol::entity::Card::Backface));
                 button.setIcon(m_pixmap_storage.get(type));
             });
+
+        card.raise_status.subscribe([this, &card, &button](const domain::model::HandOfCards::Card::RaiseStatus& status){
+            if (status == domain::model::HandOfCards::Card::RaiseStatus::NotChoosen)
+            {
+                button.setStyleSheet(kDefaultCardStyle);
+                return;
+            }
+            
+            button.setStyleSheet(status == domain::model::HandOfCards::Card::RaiseStatus::Win ? kWinCardStyle : kLoseCardStyle);
+        });
     };
 }
 

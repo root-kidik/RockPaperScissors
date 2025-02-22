@@ -67,8 +67,11 @@ m_start_game_usecase{start_game_usecase}
             if (!is_room_created)
                 return;
 
-            m_layout.addWidget(&m_start_game_button, 1, 1);
             m_start_game_button.setStyleSheet(util::kDefaultGreenButtonStyle);
+            m_start_game_button.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+            m_start_game_button.setMaximumSize(util::kMaxButtonSize);
+
+            m_layout.addWidget(&m_start_game_button, 1, 1, Qt::AlignJustify);
 
             connect(&m_start_game_button, &QPushButton::pressed, [this]() { m_start_game_usecase.start_game(); });
         });

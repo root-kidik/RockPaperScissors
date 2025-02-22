@@ -7,7 +7,9 @@ HandOfCards::Card::Card(const HandOfCards& hand) :
 type{protocol::entity::Card::Backface},
 is_nominated{false, [&hand](const bool& value) { return !hand.is_nominating_locked.get_value(); }},
 is_raised{false},
-is_force_nominated{false}
+is_force_nominated{false},
+is_raised_in_current_round{false},
+raise_status{RaiseStatus::NotChoosen}
 {
 }
 

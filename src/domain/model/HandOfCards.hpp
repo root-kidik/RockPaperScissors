@@ -16,9 +16,20 @@ struct HandOfCards
         Card(const HandOfCards& hand);
 
         util::Property<protocol::entity::Card> type;
-        util::Property<bool>                   is_nominated;
-        util::Property<bool>                   is_raised;
-        util::Property<bool>                   is_force_nominated;
+
+        util::Property<bool> is_nominated;
+        util::Property<bool> is_raised;
+        util::Property<bool> is_force_nominated;
+
+        enum class RaiseStatus
+        {
+            NotChoosen,
+            Win,
+            Loss,
+        };
+        
+        util::Property<bool> is_raised_in_current_round;
+        util::Property<RaiseStatus> raise_status;
     };
 
     HandOfCards();

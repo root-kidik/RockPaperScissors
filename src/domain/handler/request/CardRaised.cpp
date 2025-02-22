@@ -18,16 +18,29 @@ CardRaised::Response CardRaised::handle(Request&& request, const std::shared_ptr
 
     auto& player_hand_cards = m_room.player_hand_of_cards_model.cards;
 
-    auto it = std::find_if(player_hand_cards.begin(),
-                           player_hand_cards.end(),
-                           [type = request.card](const model::HandOfCards::Card& card)
-                           { return card.is_nominated.get_value() || card.is_force_nominated.get_value(); });
+    {
+        auto it = std::find_if(player_hand_cards.begin(),
+                               player_hand_cards.end(),
+                               [](const model::HandOfCards::Card& card)
+                               { return card.is_raised_in_current_round.get_value(); });
 
-    assert(it != player_hand_cards.end() && "nominated or force nominated card must exist");
+        if (it != player_hand_cards.end())
+            it->is_raised_in_current_round.set_value(false);
+    }
 
-    it->is_nominated.set_value(false);
-    it->is_force_nominated.set_value(false);
-    it->is_raised.set_value(true);
+    {
+        auto it = std::find_if(player_hand_cards.begin(),
+                               player_hand_cards.end(),
+                               [type = request.card](const model::HandOfCards::Card& card)
+                               { return card.is_nominated.get_value() || card.is_force_nominated.get_value(); });
+
+        assert(it != player_hand_cards.end() && "nominated or force nominated card must exist");
+
+        it->is_nominated.set_value(false);
+        it->is_force_nominated.set_value(false);
+        it->is_raised.set_value(true);
+        it->is_raised_in_current_round.set_value(true);
+    }
 
     return response;
 }
