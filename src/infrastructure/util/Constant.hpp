@@ -41,6 +41,30 @@ inline constexpr const char* kDefaultRedButtonStyle =
     "background-color:rgb(184, 42, 42);"
     "}";
 
+inline constexpr const char* kDefaultGreenLabelStyle =
+    "QLabel {"
+    "background-color: transparent;"
+    "color: rgb(76, 175, 80);"
+    "border: none;"
+    "border-radius: 10px;"
+    "padding: 10px;"
+    "font-size: 24px;"
+    "font-weight: bold;"
+    "text-align: center;"
+    "}";
+
+inline constexpr const char* kDefaultRedLabelStyle =
+    "QLabel {"
+    "background-color: transparent;"
+    "color: rgb(156, 76, 71);"
+    "border: none;"
+    "border-radius: 10px;"
+    "padding: 10px;"
+    "font-size: 24px;"
+    "font-weight: bold;"
+    "text-align: center;"
+    "}";
+
 inline constexpr const char* kDefaultLineEditStyle =
     "QLineEdit {"
     "border: 4px solid #4CAF50;"

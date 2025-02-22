@@ -10,6 +10,7 @@ enum class Mode
     Registration,
     Searching,
     Room,
+    GameResult,
     End,
 };
 

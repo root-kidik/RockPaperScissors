@@ -2,6 +2,7 @@
 #include <infrastructure/widget/Registration.hpp>
 #include <infrastructure/widget/Room.hpp>
 #include <infrastructure/widget/Searching.hpp>
+#include <infrastructure/widget/GameResult.hpp>
 
 #include <infrastructure/client/TcpSocketConnection.hpp>
 
@@ -13,6 +14,7 @@
 #include <domain/handler/request/GameStarted.hpp>
 #include <domain/handler/request/NewPlayerAdded.hpp>
 #include <domain/handler/request/RoundInfo.hpp>
+#include <domain/handler/request/GameResult.hpp>
 #include <domain/handler/response/ConnectToRoom.hpp>
 #include <domain/handler/response/CreateRoom.hpp>
 #include <domain/handler/response/Register.hpp>
@@ -51,6 +53,7 @@ void RockPaperScissors::init_message_handlers()
     m_message_executor.register_request_handler<domain::handler::request::CardRaised>(m_room_model);
     m_message_executor.register_request_handler<domain::handler::request::RoundInfo>(m_room_model);
     m_message_executor.register_request_handler<domain::handler::request::DealMissingCard>(m_room_model);
+    m_message_executor.register_request_handler<domain::handler::request::GameResult>(m_widget_manager, m_room_model);
 }
 
 void RockPaperScissors::connect_to_server()
@@ -72,6 +75,7 @@ void RockPaperScissors::init_widgets()
     m_widget_manager.register_widget<widget::Registration>(domain::entity::Mode::Registration, m_registration_usecase);
     m_widget_manager.register_widget<widget::Searching>(domain::entity::Mode::Searching, m_searcing_usecase, m_room_model);
     m_widget_manager.register_widget<widget::Room>(domain::entity::Mode::Room, m_room_model, m_pixmap_storage, m_user, m_start_game_usecase);
+    m_widget_manager.register_widget<widget::GameResult>(domain::entity::Mode::GameResult, m_room_model);
 
     m_widget_manager.activate_mode(domain::entity::Mode::MainMenu);
 }

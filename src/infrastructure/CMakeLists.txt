@@ -26,6 +26,8 @@ set(SRC
     ${SRCROOT}/widget/Searching.cpp
     ${SRCROOT}/widget/Room.hpp
     ${SRCROOT}/widget/Room.cpp
+    ${SRCROOT}/widget/GameResult.hpp
+    ${SRCROOT}/widget/GameResult.cpp
 )
 
 add_library(${TARGET_NAME} ${SRC})

@@ -14,7 +14,8 @@ Room::Room(protocol::entity::MessageSender&                        message_sende
            const std::shared_ptr<protocol::interface::Connection>& connection) :
 players{std::string{""}, std::string{""}, std::string{""}},
 is_game_started{false},
-is_room_created{false}
+is_room_created{false},
+is_winned{false}
 {
     play_table_hand_of_cards_model.is_backface_hidden.set_value(true);
 

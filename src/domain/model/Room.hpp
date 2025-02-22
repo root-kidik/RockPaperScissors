@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <string>
-#include <vector>
 
 #include <RockPaperScissorsProtocol/entity/Card.hpp>
 
@@ -50,6 +49,8 @@ struct Room
     util::Property<bool> is_room_created;
     util::Property<bool> is_connected_to_room;
     util::Property<bool> is_game_started;
+
+    util::Property<bool> is_winned;
 
     domain::model::HandOfCards player_hand_of_cards_model;
     domain::model::HandOfCards north_hand_of_cards_model;
