@@ -26,7 +26,7 @@ namespace rps::infrastructure
 class RockPaperScissors
 {
 public:
-    RockPaperScissors(int argc, char* argv[]);
+    RockPaperScissors(int& argc, char* argv[]);
 
     int run();
 

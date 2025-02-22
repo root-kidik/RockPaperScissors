@@ -23,7 +23,7 @@
 namespace rps::infrastructure
 {
 
-RockPaperScissors::RockPaperScissors(int argc, char* argv[]) :
+RockPaperScissors::RockPaperScissors(int& argc, char* argv[]) :
 m_app{argc, argv},
 m_registration_usecase{m_message_sender, m_user, m_connection},
 m_searcing_usecase{m_message_sender, m_user, m_connection},
