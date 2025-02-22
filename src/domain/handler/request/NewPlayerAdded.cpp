@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <domain/model/Room.hpp>
 
 #include <domain/handler/request/NewPlayerAdded.hpp>
@@ -15,7 +17,15 @@ NewPlayerAdded::Response NewPlayerAdded::handle(Request&&                       
     Response response;
     response.is_ok = true;
 
-    m_room.players.add_value(std::move(request.user_nickname));
+    auto& players = m_room.players;
+
+    auto it = std::find_if(players.begin(),
+                           players.end(),
+                           [](const util::Property<std::string>& nickname) { return nickname.get_value().empty(); });
+
+    assert(it != players.end() && "added too many players");
+
+    it->set_value(std::move(request.user_nickname));
 
     return response;
 }

@@ -44,8 +44,8 @@ struct Room
          domain::entity::User&                                   user,
          const std::shared_ptr<protocol::interface::Connection>& connection);
 
-    util::Property<std::vector<std::string>> players;
-    util::Property<std::string>              name;
+    std::array<util::Property<std::string>, protocol::entity::kMaxPlayersPerRoom - 1> players;
+    util::Property<std::string>                                                       name;
 
     util::Property<bool> is_room_created;
     util::Property<bool> is_connected_to_room;
@@ -56,15 +56,6 @@ struct Room
     domain::model::HandOfCards west_hand_of_cards_model;
     domain::model::HandOfCards east_hand_of_cards_model;
     domain::model::HandOfCards play_table_hand_of_cards_model;
-
-private:
-    protocol::entity::MessageSender&                        m_message_sender;
-    domain::entity::User&                                   m_user;
-    const std::shared_ptr<protocol::interface::Connection>& m_connection;
-
-    bool m_has_north;
-    bool m_has_west;
-    bool m_has_east;
 };
 
 } // namespace rps::domain::model

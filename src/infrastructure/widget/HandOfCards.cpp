@@ -118,7 +118,9 @@ m_type{type}
         card.type.subscribe(
             [this, &card, &button](const protocol::entity::Card& type)
             {
-                button.setHidden(card.is_raised.get_value() || (m_model.is_backface_hidden.get_value() && card.type.get_value() == protocol::entity::Card::Backface));
+                button.setHidden(
+                    card.is_raised.get_value() ||
+                    (m_model.is_backface_hidden.get_value() && card.type.get_value() == protocol::entity::Card::Backface));
                 button.setIcon(m_pixmap_storage.get(type));
             });
     };
